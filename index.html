@@ -1,0 +1,1159 @@
+<title>FORMA Studio</title>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,700;1,700&family=Cormorant+Garamond:ital,wght@0,300;0,400;0,600;1,300;1,400&family=Inter:wght@300;400;500&display=swap">
+
+<style>
+:root {
+  --black:      #0A0A08;
+  --charcoal:   #1A1714;
+  --surface:    #252220;
+  --border:     #3A3530;
+  --ivory:      #F0EDE6;
+  --sand:       #D4C9B0;
+  --taupe:      #8A7A68;
+  --mocha:      #5C4A38;
+  --gold:       #C8A45A;
+  --gold-light: #E6CC92;
+  --gold-dim:   rgba(200,164,90,0.12);
+  --gold-line:  rgba(200,164,90,0.25);
+  --nav-bg:     rgba(10,10,8,0.88);
+  --r:          2px;
+  --max:        1200px;
+}
+@media (prefers-color-scheme: light) {
+  :root:not([data-theme="dark"]) {
+    --black:      #F4F1EB;
+    --charcoal:   #EDEAE3;
+    --surface:    #FFFFFF;
+    --border:     #D8D3C8;
+    --ivory:      #1A1714;
+    --sand:       #706860;
+    --taupe:      #A09890;
+    --mocha:      #C8C0B4;
+    --gold:       #8A6820;
+    --gold-light: #6E5418;
+    --gold-dim:   rgba(138,104,32,0.07);
+    --gold-line:  rgba(138,104,32,0.22);
+    --nav-bg:     rgba(244,241,235,0.92);
+  }
+}
+:root[data-theme="dark"] {
+  --black:#0A0A08;--charcoal:#1A1714;--surface:#252220;--border:#3A3530;
+  --ivory:#F0EDE6;--sand:#D4C9B0;--taupe:#8A7A68;--mocha:#5C4A38;
+  --gold:#C8A45A;--gold-light:#E6CC92;--gold-dim:rgba(200,164,90,0.12);--gold-line:rgba(200,164,90,0.25);
+  --nav-bg:rgba(10,10,8,0.88);
+}
+:root[data-theme="light"] {
+  --black:#F4F1EB;--charcoal:#EDEAE3;--surface:#FFFFFF;--border:#D8D3C8;
+  --ivory:#1A1714;--sand:#706860;--taupe:#A09890;--mocha:#C8C0B4;
+  --gold:#8A6820;--gold-light:#6E5418;--gold-dim:rgba(154,114,40,0.07);--gold-line:rgba(154,114,40,0.22);
+  --nav-bg:rgba(244,241,235,0.92);
+}
+
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0;}
+html{scroll-behavior:smooth;}
+body{background:var(--black);color:var(--ivory);font-family:'Inter',system-ui,sans-serif;font-weight:300;font-size:15px;line-height:1.7;-webkit-font-smoothing:antialiased;overflow-x:hidden;}
+a{color:inherit;text-decoration:none;}
+img{max-width:100%;display:block;}
+button{cursor:pointer;border:none;background:none;font-family:inherit;color:inherit;}
+input,select,textarea{font-family:inherit;color:inherit;}
+
+.container{max-width:var(--max);margin:0 auto;padding-inline:24px;}
+.section{padding-block:96px;}
+.section__eyebrow{font-size:11px;font-weight:500;letter-spacing:.18em;text-transform:uppercase;color:var(--gold);margin-bottom:16px;}
+.section__title{font-family:'Playfair Display',Georgia,serif;font-size:clamp(36px,5vw,64px);font-weight:700;line-height:1.08;text-transform:uppercase;letter-spacing:-.02em;color:var(--ivory);margin-bottom:56px;text-wrap:balance;}
+.section__title em{font-family:'Cormorant Garamond',Georgia,serif;font-style:italic;font-weight:300;color:var(--gold);text-transform:none;letter-spacing:0;font-size:0.85em;}
+
+/* ─ BUTTONS ─ */
+.btn{display:inline-flex;align-items:center;justify-content:center;gap:8px;padding:14px 28px;font-size:12px;font-weight:500;letter-spacing:.08em;text-transform:uppercase;transition:all .2s ease;border-radius:var(--r);white-space:nowrap;}
+.btn--gold{background:var(--gold);color:var(--black);}
+.btn--gold:hover{background:var(--gold-light);}
+.btn--outline{border:1px solid var(--gold-line);color:var(--ivory);}
+.btn--outline:hover{border-color:var(--gold);color:var(--gold);}
+.btn--sm{padding:10px 20px;font-size:11px;}
+
+/* ─ METALLIC BUTTONS ─ */
+.mbtn{position:relative;display:inline-block;}
+.mbtn__persp{perspective:1000px;perspective-origin:50% 50%;}
+.mbtn__shell{position:relative;transform-style:preserve-3d;height:48px;display:inline-block;}
+.mbtn__label{position:relative;z-index:30;display:inline-flex;align-items:center;justify-content:center;height:100%;padding:0 32px;transform:translateZ(5px);transform-style:preserve-3d;pointer-events:none;font-size:12px;font-weight:500;letter-spacing:.08em;text-transform:uppercase;white-space:nowrap;color:#fff;text-shadow:0 1px 2px rgba(0,0,0,.5);transition:all .8s cubic-bezier(.34,1.56,.64,1);}
+.mbtn__face-w{position:absolute;inset:0;z-index:20;transform:translateZ(2.5px);transform-style:preserve-3d;transition:all .8s cubic-bezier(.34,1.56,.64,1);}
+.mbtn__face{margin:2px;border-radius:9999px;width:calc(100% - 4px);height:calc(100% - 4px);background:linear-gradient(180deg,#202020,#000);transition:box-shadow .15s cubic-bezier(.4,0,.2,1);}
+.mbtn__surf-w{position:absolute;inset:0;z-index:10;transform:translateZ(0);transform-style:preserve-3d;transition:all .8s cubic-bezier(.34,1.56,.64,1);}
+.mbtn__rim{border-radius:9999px;width:100%;height:100%;box-shadow:0 0 0 1px rgba(0,0,0,.3),0 36px 14px rgba(0,0,0,.02),0 20px 12px rgba(0,0,0,.08),0 9px 9px rgba(0,0,0,.12),0 2px 5px rgba(0,0,0,.15);transition:box-shadow .15s cubic-bezier(.4,0,.2,1);}
+.mbtn__cvs{position:relative;overflow:hidden;border-radius:9999px;width:100%;height:100%;}
+.mbtn__cvs canvas{width:100%!important;height:100%!important;display:block!important;position:absolute!important;inset:0!important;border-radius:100px!important;}
+.mbtn__hit{position:absolute;inset:0;z-index:40;transform:translateZ(6.25px);transform-style:preserve-3d;cursor:pointer;overflow:hidden;border-radius:9999px;border:none;background:transparent;outline:none;display:block;text-decoration:none;color:transparent;font-size:0;}
+.mbtn.is-pressed .mbtn__face-w{transform:translateZ(2.5px) translateY(1px) scale(.98);}
+.mbtn.is-pressed .mbtn__surf-w{transform:translateZ(0) translateY(1px) scale(.98);}
+.mbtn.is-pressed .mbtn__face{box-shadow:inset 0 2px 4px rgba(0,0,0,.4),inset 0 1px 2px rgba(0,0,0,.3);}
+.mbtn.is-pressed .mbtn__rim{box-shadow:0 0 0 1px rgba(0,0,0,.5),0 1px 2px rgba(0,0,0,.3);}
+.mbtn.is-hovered:not(.is-pressed) .mbtn__rim{box-shadow:0 0 0 1px rgba(0,0,0,.4),0 12px 6px rgba(0,0,0,.05),0 8px 5px rgba(0,0,0,.1),0 4px 4px rgba(0,0,0,.15),0 1px 2px rgba(0,0,0,.2);}
+@keyframes mbtn-ripple{0%{transform:translate(-50%,-50%) scale(0);opacity:.6}to{transform:translate(-50%,-50%) scale(4);opacity:0}}
+.mbtn__ripple{pointer-events:none;position:absolute;width:20px;height:20px;border-radius:50%;background:radial-gradient(circle,rgba(255,255,255,.4) 0%,rgba(255,255,255,0) 70%);animation:mbtn-ripple .6s ease-out forwards;}
+
+/* ─ NAV ─ */
+.nav{position:sticky;top:env(safe-area-inset-top,0px);z-index:100;background:var(--nav-bg);backdrop-filter:blur(14px);-webkit-backdrop-filter:blur(14px);border-bottom:1px solid var(--border);padding-block:16px;}
+.nav__inner{display:flex;align-items:center;gap:0;}
+.nav__logo{font-family:'Playfair Display',Georgia,serif;font-size:21px;font-weight:700;letter-spacing:.14em;color:var(--ivory);flex-shrink:0;text-transform:uppercase;}
+.nav__links{display:flex;gap:28px;flex:1;margin-inline:32px;}
+.nav__links a{font-size:12px;color:var(--sand);transition:color .2s;letter-spacing:.04em;font-weight:400;}
+.nav__links a:hover{color:var(--ivory);}
+@media(max-width:700px){.nav__links{display:none;}}
+@media(max-width:480px){.nav .btn--sm{display:none;}}
+
+/* ─ HERO ─ */
+.hero{min-height:90vh;display:flex;align-items:center;justify-content:center;position:relative;overflow:hidden;text-align:center;}
+.hero__bg{position:absolute;inset:0;background:linear-gradient(148deg,#2A2218 0%,#3A2E20 20%,#5C4838 45%,#7A6248 65%,#4A3E2A 85%,#1A1610 100%);}
+.hero__bg canvas{display:block;width:100%;height:100%;}
+.hero__overlay{position:absolute;inset:0;background:linear-gradient(to bottom,rgba(10,10,8,0.7) 0%,transparent 45%,rgba(10,10,8,0.8) 85%);pointer-events:none;}
+.hero__content{position:relative;z-index:2;max-width:820px;padding:40px 24px;}
+.hero__eyebrow{font-size:11px;font-weight:500;letter-spacing:.2em;text-transform:uppercase;color:var(--gold);margin-bottom:28px;}
+.hero__h1{font-family:'Playfair Display',Georgia,serif;font-size:clamp(56px,8vw,110px);font-weight:700;line-height:.95;color:var(--ivory);margin-bottom:12px;text-transform:uppercase;letter-spacing:-.02em;text-wrap:balance;}
+.hero__accent{display:block;font-family:'Cormorant Garamond',Georgia,serif;font-size:clamp(42px,6.5vw,88px);font-weight:300;font-style:italic;color:var(--gold);line-height:1.1;margin-bottom:28px;text-transform:none;letter-spacing:0;}
+.hero__divider{width:64px;height:1px;background:var(--gold);margin:0 auto 28px;}
+.hero__sub{font-size:15px;color:var(--sand);max-width:520px;margin:0 auto 40px;line-height:1.75;}
+.hero__sub strong{color:var(--ivory);font-weight:400;}
+.hero__ctas{display:flex;gap:14px;flex-wrap:wrap;justify-content:center;}
+.hero__stats{display:grid;grid-template-columns:repeat(4,1fr);gap:32px;margin-top:64px;padding-top:40px;border-top:1px solid var(--gold-line);max-width:640px;margin-left:auto;margin-right:auto;}
+.stat__val{font-family:'Playfair Display',Georgia,serif;font-size:38px;font-weight:700;color:var(--ivory);line-height:1;display:flex;align-items:baseline;gap:4px;justify-content:center;}
+.stat__val sup{font-size:16px;color:var(--gold);font-family:'Cormorant Garamond',Georgia,serif;}
+.stat__label{font-size:11px;color:var(--sand);margin-top:5px;letter-spacing:.02em;}
+@media(max-width:600px){
+  .hero__stats{grid-template-columns:repeat(2,1fr);gap:24px;}
+  .stat__val{font-size:30px;}
+}
+
+/* ─ ICON STRIP ─ */
+.icon-strip{position:absolute;bottom:0;left:0;right:0;z-index:3;background:rgba(10,10,8,0.6);backdrop-filter:blur(10px);border-top:1px solid var(--border);}
+.icon-strip__inner{display:grid;grid-template-columns:repeat(4,1fr);gap:1px;max-width:var(--max);margin:0 auto;}
+.icon-strip__item{display:flex;align-items:center;gap:12px;padding:18px 24px;}
+.icon-strip__item svg{width:24px;height:24px;color:var(--gold);flex-shrink:0;}
+.icon-strip__item span{font-size:11px;color:var(--sand);letter-spacing:.03em;}
+@media(max-width:760px){.icon-strip__inner{grid-template-columns:repeat(2,1fr);}}
+@media(max-width:480px){.icon-strip{display:none;}}
+
+/* ─ SERVICES ─ */
+.services{background:var(--charcoal);}
+.svc__grid{display:grid;grid-template-columns:repeat(4,1fr);gap:1px;background:var(--border);}
+.svc{background:var(--charcoal);padding:34px 26px;transition:background .22s;}
+.svc:hover{background:var(--surface);}
+.svc__ico{width:40px;height:40px;margin-bottom:20px;color:var(--gold);}
+.svc__name{font-family:'Playfair Display',Georgia,serif;font-size:20px;font-weight:700;line-height:1.2;margin-bottom:10px;color:var(--ivory);}
+.svc__desc{font-size:12px;color:var(--sand);line-height:1.68;margin-bottom:18px;}
+.svc__price{font-size:12px;color:var(--gold);font-weight:500;letter-spacing:.03em;}
+@media(max-width:860px){.svc__grid{grid-template-columns:repeat(2,1fr);}}
+@media(max-width:480px){.svc__grid{grid-template-columns:1fr;}}
+
+/* ─ PROCESS ─ */
+.process{background:var(--black);}
+.proc__steps{display:grid;grid-template-columns:repeat(5,1fr);position:relative;gap:0;}
+.proc__steps::before{content:'';position:absolute;top:27px;left:10%;right:10%;height:1px;background:linear-gradient(90deg,transparent 0%,var(--gold-line) 15%,var(--gold) 50%,var(--gold-line) 85%,transparent 100%);}
+.step{padding:0 12px;text-align:center;}
+.step__num{width:54px;height:54px;border-radius:50%;border:1px solid var(--gold-line);background:var(--black);display:flex;align-items:center;justify-content:center;font-family:'Playfair Display',Georgia,serif;font-size:22px;font-weight:700;color:var(--gold);margin:0 auto 18px;position:relative;z-index:1;transition:border-color .2s,background .2s;}
+.step:hover .step__num{border-color:var(--gold);background:var(--gold-dim);}
+.step__title{font-size:13px;font-weight:500;color:var(--ivory);margin-bottom:6px;}
+.step__desc{font-size:11px;color:var(--sand);line-height:1.6;}
+@media(max-width:860px){
+  .proc__steps{grid-template-columns:1fr;gap:0;}
+  .proc__steps::before{display:none;}
+  .step{display:grid;grid-template-columns:54px 1fr;gap:18px;text-align:left;padding:20px 0;border-bottom:1px solid var(--border);}
+  .step:last-child{border-bottom:none;}
+  .step__num{margin:0;}
+}
+
+/* ─ PORTFOLIO ─ */
+.port{background:var(--charcoal);}
+.port__grid{display:grid;grid-template-columns:repeat(3,1fr);gap:16px;}
+.pcard{position:relative;overflow:hidden;border-radius:var(--r);aspect-ratio:4/3;cursor:pointer;}
+.pcard:nth-child(1){grid-column:span 2;aspect-ratio:16/9;}
+.pcard__bg{position:absolute;inset:0;transition:transform .45s cubic-bezier(.25,.46,.45,.94);}
+.pcard:hover .pcard__bg{transform:scale(1.05);}
+.pcard__fg{position:absolute;inset:0;background:linear-gradient(to top,rgba(10,10,8,0.82) 0%,rgba(10,10,8,0.1) 55%,transparent 80%);display:flex;flex-direction:column;justify-content:flex-end;padding:20px;}
+.pcard__area{font-size:10px;letter-spacing:.14em;color:var(--gold);text-transform:uppercase;margin-bottom:5px;font-weight:500;}
+.pcard__name{font-family:'Playfair Display',Georgia,serif;font-size:18px;font-weight:700;color:var(--ivory);line-height:1.2;}
+.pcard__style{font-size:11px;color:var(--sand);margin-top:3px;}
+.pb1{background:linear-gradient(148deg,#3A2E22 0%,#5C4838 45%,#7A6248 100%);}
+.pb2{background:linear-gradient(148deg,#2A2E34 0%,#404858 45%,#5A6880 100%);}
+.pb3{background:linear-gradient(148deg,#1E2820 0%,#2E4030 45%,#3A5840 100%);}
+.pb4{background:linear-gradient(148deg,#3A2E28 0%,#524038 45%,#6A5248 100%);}
+.pb5{background:linear-gradient(148deg,#2C2A24 0%,#484038 45%,#5C5248 100%);}
+.pb6{background:linear-gradient(148deg,#283034 0%,#3A4850 45%,#4E6068 100%);}
+@media(max-width:760px){
+  .port__grid{grid-template-columns:1fr 1fr;gap:12px;}
+  .pcard:nth-child(1){grid-column:span 2;}
+}
+@media(max-width:480px){
+  .port__grid{grid-template-columns:1fr;}
+  .pcard:nth-child(1){grid-column:span 1;aspect-ratio:4/3;}
+}
+
+/* ─ ADVANTAGES ─ */
+.advantages{background:var(--charcoal);}
+.adv__grid{display:grid;grid-template-columns:repeat(3,1fr);gap:1px;background:var(--border);}
+.adv{background:var(--charcoal);padding:34px 28px;border-left:2px solid transparent;transition:background .22s,border-left-color .22s;}
+.adv:hover{background:var(--surface);border-left-color:var(--gold);}
+.adv__ico{margin-bottom:18px;}
+.adv__ico svg{width:32px;height:32px;color:var(--gold);}
+.adv__title{font-size:14px;font-weight:500;color:var(--ivory);margin-bottom:9px;}
+.adv__desc{font-size:12px;color:var(--sand);line-height:1.68;}
+.adv--highlight{background:var(--gold-dim) !important;border-left:2px solid var(--gold) !important;}
+.adv--highlight .adv__title{color:var(--gold);}
+@media(max-width:860px){.adv__grid{grid-template-columns:repeat(2,1fr);}}
+@media(max-width:480px){.adv__grid{grid-template-columns:1fr;}}
+
+/* ─ CALCULATOR ─ */
+.calculator{background:var(--black);}
+.calc__wrap{display:grid;grid-template-columns:1fr 1fr;gap:64px;align-items:start;}
+.calc__fields{display:flex;flex-direction:column;gap:24px;}
+.fld{display:flex;flex-direction:column;gap:9px;}
+.fld label{font-size:11px;font-weight:500;letter-spacing:.1em;text-transform:uppercase;color:var(--sand);}
+.fld-row{display:flex;}
+.fld input[type=number],.fld select{
+  flex:1;background:var(--charcoal);border:1px solid var(--border);
+  color:var(--ivory);padding:13px 15px;font-size:15px;
+  border-radius:var(--r);transition:border-color .2s;outline:none;
+  -webkit-appearance:none;appearance:none;
+}
+.fld input[type=number]{border-radius:var(--r) 0 0 var(--r);border-right:none;}
+.fld input[type=number]:focus,.fld select:focus{border-color:var(--gold);}
+.fld-unit{background:var(--surface);border:1px solid var(--border);border-left:none;padding:13px 14px;font-size:13px;color:var(--sand);border-radius:0 var(--r) var(--r) 0;white-space:nowrap;}
+.fld select option{background:var(--charcoal);}
+.calc__result{background:var(--charcoal);border:1px solid var(--border);border-radius:var(--r);padding:36px;}
+.calc__res-label{font-size:10px;font-weight:500;letter-spacing:.14em;text-transform:uppercase;color:var(--sand);margin-bottom:10px;}
+.calc__res-price{font-family:'Playfair Display',Georgia,serif;font-size:clamp(30px,4.5vw,48px);font-weight:700;color:var(--ivory);line-height:1.1;margin-bottom:18px;}
+.calc__res-price em{font-style:normal;font-size:.55em;color:var(--gold);}
+.calc__res-row{display:flex;justify-content:space-between;padding:10px 0;border-top:1px solid var(--border);font-size:12px;}
+.calc__res-row span:first-child{color:var(--sand);}
+.calc__res-row span:last-child{color:var(--ivory);}
+.calc__note{font-size:11px;color:var(--sand);line-height:1.6;padding-top:16px;border-top:1px solid var(--border);margin-top:6px;}
+@media(max-width:768px){.calc__wrap{grid-template-columns:1fr;gap:36px;}}
+
+/* ─ REVIEWS ─ */
+.reviews{background:var(--charcoal);}
+.rev__grid{display:grid;grid-template-columns:repeat(3,1fr);gap:16px;}
+.rev{background:var(--charcoal);border:1px solid var(--border);border-radius:var(--r);padding:26px;display:flex;flex-direction:column;gap:14px;transition:border-color .2s;}
+.rev:hover{border-color:var(--gold-line);}
+.rev__stars{color:var(--gold);letter-spacing:3px;font-size:12px;}
+.rev__quote{font-family:'Cormorant Garamond',Georgia,serif;font-size:16px;line-height:1.65;color:var(--ivory);font-style:italic;font-weight:300;}
+.rev__who strong{display:block;font-size:13px;font-weight:500;color:var(--ivory);}
+.rev__who span{font-size:11px;color:var(--sand);}
+@media(max-width:760px){.rev__grid{grid-template-columns:1fr;}}
+@media(min-width:481px) and (max-width:760px){.rev__grid{grid-template-columns:1fr 1fr;}}
+
+/* ─ FAQ ─ */
+.faq-section{background:var(--black);}
+.faq__list{display:flex;flex-direction:column;max-width:820px;}
+.fq{border-bottom:1px solid var(--border);}
+.fq__btn{width:100%;display:flex;justify-content:space-between;align-items:center;padding:20px 0;font-size:14px;color:var(--ivory);font-weight:400;gap:20px;text-align:left;}
+.fq__btn:hover{color:var(--gold);}
+.fq__icon{flex-shrink:0;width:22px;height:22px;border:1px solid var(--border);border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:16px;color:var(--gold);transition:transform .25s,border-color .25s;}
+.fq.open .fq__icon{transform:rotate(45deg);border-color:var(--gold);}
+.fq__ans{display:grid;grid-template-rows:0fr;transition:grid-template-rows .32s ease;}
+.fq__ans>p{overflow:hidden;min-height:0;}
+.fq.open .fq__ans{grid-template-rows:1fr;}
+.fq__ans p{font-size:13px;color:var(--sand);line-height:1.75;padding-bottom:20px;}
+
+/* ─ CONTACT FORM ─ */
+.contact{background:var(--charcoal);}
+.contact__grid{display:grid;grid-template-columns:1fr 1fr;gap:80px;align-items:start;}
+.contact__pitch{display:flex;flex-direction:column;gap:0;}
+.contact__pitch h2{font-family:'Playfair Display',Georgia,serif;font-size:clamp(30px,4vw,46px);font-weight:700;color:var(--ivory);line-height:1.1;margin-bottom:10px;text-transform:uppercase;letter-spacing:-.02em;}
+.contact__pitch h2 em{font-family:'Cormorant Garamond',Georgia,serif;font-style:italic;font-weight:300;color:var(--gold);text-transform:none;letter-spacing:0;font-size:0.85em;}
+.contact__pitch p{font-size:13px;color:var(--sand);line-height:1.75;margin-bottom:28px;max-width:320px;}
+.contact__perks{display:flex;flex-direction:column;gap:10px;}
+.perk{display:flex;align-items:center;gap:12px;font-size:13px;color:var(--ivory);}
+.perk::before{content:'';width:6px;height:6px;background:var(--gold);flex-shrink:0;}
+.cform{display:flex;flex-direction:column;gap:14px;}
+.cform-row{display:grid;grid-template-columns:1fr 1fr;gap:14px;}
+.cf{display:flex;flex-direction:column;gap:7px;}
+.cf label{font-size:10px;font-weight:500;letter-spacing:.12em;text-transform:uppercase;color:var(--sand);}
+.cf input,.cf select{background:var(--surface);border:1px solid var(--border);color:var(--ivory);padding:13px 15px;font-size:14px;border-radius:var(--r);transition:border-color .2s;outline:none;-webkit-appearance:none;appearance:none;width:100%;}
+.cf input:focus,.cf select:focus{border-color:var(--gold);}
+.cf select option{background:var(--surface);}
+.consent-row{display:flex;align-items:flex-start;gap:12px;padding-top:4px;}
+.consent-row input[type=checkbox]{flex-shrink:0;width:16px;height:16px;margin-top:2px;accent-color:var(--gold);cursor:pointer;}
+.consent-row label{font-size:11px;color:var(--sand);line-height:1.5;cursor:pointer;}
+.consent-row a{color:var(--gold);}
+.cform .btn{width:100%;margin-top:4px;}
+#form-success{background:var(--gold-dim);border:1px solid var(--gold-line);border-radius:var(--r);padding:16px;font-size:13px;text-align:center;color:var(--ivory);}
+@media(max-width:860px){.contact__grid{grid-template-columns:1fr;gap:44px;}}
+@media(max-width:480px){.cform-row{grid-template-columns:1fr;}}
+
+/* ─ FOOTER ─ */
+.footer{background:var(--black);padding-block:72px;}
+.footer__info{display:grid;grid-template-columns:repeat(3,1fr);gap:48px;margin-bottom:72px;padding-bottom:48px;border-bottom:1px solid var(--border);}
+.finfo__label{font-size:10px;font-weight:500;letter-spacing:.16em;text-transform:uppercase;color:var(--taupe);margin-bottom:10px;}
+.finfo__val{font-size:14px;color:var(--ivory);}
+.finfo__val a:hover{color:var(--gold);}
+.finfo__sub{font-size:11px;color:var(--sand);margin-top:4px;}
+.finfo__btns{display:flex;gap:10px;margin-top:12px;}
+.finfo__btns a{font-size:11px;color:var(--gold);border:1px solid var(--gold-line);padding:6px 12px;border-radius:2px;transition:border-color .2s;}
+.finfo__btns a:hover{border-color:var(--gold);}
+.bigtype{overflow:hidden;padding-top:4px;}
+.bigtype__word{font-family:'Playfair Display',Georgia,serif;font-size:clamp(80px,18vw,220px);font-weight:700;color:transparent;-webkit-text-stroke:1px var(--border);line-height:.88;white-space:nowrap;letter-spacing:-.02em;user-select:none;display:block;transition:color .35s,-webkit-text-stroke .35s;cursor:default;text-transform:uppercase;}
+.bigtype__word:hover{color:var(--ivory);-webkit-text-stroke:0px transparent;}
+.footer__bottom{display:flex;justify-content:space-between;align-items:center;padding-top:28px;font-size:11px;color:var(--taupe);flex-wrap:wrap;gap:12px;}
+.footer__bottom a{color:var(--taupe);transition:color .2s;}
+.footer__bottom a:hover{color:var(--gold);}
+.footer__links{display:flex;gap:20px;}
+@media(max-width:760px){.footer__info{grid-template-columns:1fr;gap:28px;}}
+
+/* ─ DECORATIVE DIAMOND ─ */
+.diamond{display:flex;justify-content:center;padding-block:24px;color:var(--gold);font-size:10px;letter-spacing:16px;}
+
+/* ─ ANIMATIONS ─ */
+@media(prefers-reduced-motion:no-preference){
+  .fade-up{opacity:0;transform:translateY(30px);transition:opacity .6s ease,transform .6s ease;}
+  .fade-up.visible{opacity:1;transform:translateY(0);}
+}
+@media(prefers-reduced-motion:reduce){
+  .fade-up{opacity:1;transform:none;}
+}
+
+@media(max-width:768px){
+  .section{padding-block:64px;}
+}
+@media(max-width:480px){
+  .section{padding-block:48px;}
+}
+</style>
+
+<!-- NAV -->
+<header class="nav">
+  <div class="nav__inner container">
+    <a href="#hero" class="nav__logo">Forma</a>
+    <nav class="nav__links">
+      <a href="#services">Услуги</a>
+      <a href="#portfolio">Работы</a>
+      <a href="#advantages">О нас</a>
+      <a href="#calculator">Стоимость</a>
+      <a href="#contact">Заявка</a>
+    </nav>
+    <a href="#contact" class="btn btn--gold btn--sm" style="margin-left:auto;">Рассчитать</a>
+  </div>
+</header>
+
+<!-- 1. HERO -->
+<section id="hero" class="hero">
+  <div class="hero__bg" id="hero-shader"></div>
+  <div class="hero__overlay"></div>
+  <div class="hero__content">
+    <p class="hero__eyebrow">Студия дизайна и ремонта · Москва</p>
+    <h1 class="hero__h1">РЕМОНТ<br>ПОД КЛЮЧ</h1>
+    <span class="hero__accent">с дизайн-проектом.</span>
+    <div class="hero__divider"></div>
+    <p class="hero__sub">Комплексный ремонт квартир и новостроек — от концепции до финального клининга. Фиксированная смета, ежедневный фотоотчёт, <strong>сдача за 60 дней</strong>.</p>
+    <div class="hero__ctas">
+      <div class="mbtn" data-sheen="#ffffffff">
+        <div class="mbtn__persp">
+          <div class="mbtn__shell">
+            <span class="mbtn__label">Рассчитать стоимость</span>
+            <div class="mbtn__face-w"><div class="mbtn__face"></div></div>
+            <div class="mbtn__surf-w"><div class="mbtn__rim"><div class="mbtn__cvs"></div></div></div>
+            <a href="#contact" class="mbtn__hit" aria-label="Рассчитать стоимость">.</a>
+          </div>
+        </div>
+      </div>
+      <div class="mbtn" data-sheen="#ffffffff">
+        <div class="mbtn__persp">
+          <div class="mbtn__shell">
+            <span class="mbtn__label">Фото интерьеров</span>
+            <div class="mbtn__face-w"><div class="mbtn__face"></div></div>
+            <div class="mbtn__surf-w"><div class="mbtn__rim"><div class="mbtn__cvs"></div></div></div>
+            <a href="#portfolio" class="mbtn__hit" aria-label="Фото интерьеров">.</a>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="hero__stats">
+      <div>
+        <div class="stat__val">60<sup>дн</sup></div>
+        <div class="stat__label">Средний срок сдачи</div>
+      </div>
+      <div>
+        <div class="stat__val">3<sup>года</sup></div>
+        <div class="stat__label">Гарантия на работы</div>
+      </div>
+      <div>
+        <div class="stat__val">120<sup>+</sup></div>
+        <div class="stat__label">Завершённых проектов</div>
+      </div>
+      <div>
+        <div class="stat__val">0<sup>₽</sup></div>
+        <div class="stat__label">Предоплата за дизайн</div>
+      </div>
+    </div>
+  </div>
+  <div class="icon-strip">
+    <div class="icon-strip__inner">
+      <div class="icon-strip__item">
+        <svg viewBox="0 0 24 24" fill="none"><rect x="3" y="3" width="18" height="18" stroke="currentColor" stroke-width="1.2"/><path d="M3 12h18M12 3v18" stroke="currentColor" stroke-width=".6" stroke-dasharray="2 2"/></svg>
+        <span>Дизайн-проект</span>
+      </div>
+      <div class="icon-strip__item">
+        <svg viewBox="0 0 24 24" fill="none"><path d="M3 21V9L12 3l9 6v12H3z" stroke="currentColor" stroke-width="1.2"/><path d="M9 21V15h6v6" stroke="currentColor" stroke-width="1.2"/></svg>
+        <span>Капитальный ремонт</span>
+      </div>
+      <div class="icon-strip__item">
+        <svg viewBox="0 0 24 24" fill="none"><path d="M5 20L13 4l6 8-4 1 4 5" stroke="currentColor" stroke-width="1.2" stroke-linecap="round"/><circle cx="17" cy="6" r="3" stroke="currentColor" stroke-width="1.2"/></svg>
+        <span>Авторский надзор</span>
+      </div>
+      <div class="icon-strip__item">
+        <svg viewBox="0 0 24 24" fill="none"><path d="M12 2l8 3v6c0 5-8 10-8 10S4 16 4 11V5l8-3z" stroke="currentColor" stroke-width="1.2"/><path d="M8 12l3 3 5-5" stroke="currentColor" stroke-width="1.2" stroke-linecap="round" stroke-linejoin="round"/></svg>
+        <span>Гарантия 3 года</span>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- 2. SERVICES -->
+<section id="services" class="services section">
+  <div class="container">
+    <p class="section__eyebrow">Что мы делаем</p>
+    <h2 class="section__title">НАШИ <em>услуги</em></h2>
+    <div class="svc__grid">
+      <div class="svc">
+        <svg class="svc__ico" viewBox="0 0 40 40" fill="none"><rect x="5" y="5" width="30" height="30" stroke="currentColor" stroke-width="1.2"/><path d="M5 20h30M20 5v30" stroke="currentColor" stroke-width=".7" stroke-dasharray="3 2"/><circle cx="20" cy="20" r="5" stroke="currentColor" stroke-width="1.2"/></svg>
+        <h3 class="svc__name">Косметический ремонт</h3>
+        <p class="svc__desc">Поклейка обоев, покраска стен, замена напольных покрытий и потолков. Минимальный срок — максимальное преображение без сноса стен.</p>
+        <p class="svc__price">от 4 500 ₽ / м²</p>
+      </div>
+      <div class="svc">
+        <svg class="svc__ico" viewBox="0 0 40 40" fill="none"><path d="M5 35V14L20 5l15 9v21H5z" stroke="currentColor" stroke-width="1.2"/><path d="M14 35V24h12v11" stroke="currentColor" stroke-width="1.2"/><path d="M5 22h30" stroke="currentColor" stroke-width=".8"/></svg>
+        <h3 class="svc__name">Капитальный ремонт</h3>
+        <p class="svc__desc">Полный цикл: демонтаж, перепланировка, замена коммуникаций, черновая и чистовая отделка. Ремонт с нуля и полностью под ключ.</p>
+        <p class="svc__price">от 9 000 ₽ / м²</p>
+      </div>
+      <div class="svc">
+        <svg class="svc__ico" viewBox="0 0 40 40" fill="none"><path d="M8 32L22 8l9 13-7 2 7 7" stroke="currentColor" stroke-width="1.2" stroke-linecap="round"/><circle cx="28" cy="10" r="5" stroke="currentColor" stroke-width="1.2"/><path d="M4 36h32" stroke="currentColor" stroke-width="1.2" stroke-linecap="round"/></svg>
+        <h3 class="svc__name">Дизайнерский ремонт</h3>
+        <p class="svc__desc">Авторский дизайн-проект с 3D-визуализацией, подбор материалов и мебели, авторский надзор. Интерьер с характером и стилем.</p>
+        <p class="svc__price">от 16 000 ₽ / м²</p>
+      </div>
+      <div class="svc">
+        <svg class="svc__ico" viewBox="0 0 40 40" fill="none"><rect x="5" y="9" width="30" height="24" stroke="currentColor" stroke-width="1.2"/><path d="M5 16h30" stroke="currentColor" stroke-width="1.2"/><path d="M13 5l2 4M27 5l-2 4" stroke="currentColor" stroke-width="1.2" stroke-linecap="round"/><path d="M11 24h6M23 24h6" stroke="currentColor" stroke-width="1.2" stroke-linecap="round"/></svg>
+        <h3 class="svc__name">Ремонт новостройки</h3>
+        <p class="svc__desc">Черновая и чистовая отделка с нуля, разводка инженерии, монтаж оборудования. Знаем все особенности современных ЖК и монолитных домов.</p>
+        <p class="svc__price">от 7 500 ₽ / м²</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- 3. PROCESS -->
+<section id="process" class="process section">
+  <div class="container">
+    <p class="section__eyebrow">Как мы работаем</p>
+    <h2 class="section__title">ПЯТЬ ШАГОВ<br><em>от замера до сдачи</em></h2>
+    <div class="proc__steps">
+      <div class="step">
+        <div class="step__num">1</div>
+        <div>
+          <p class="step__title">Замер и ТЗ</p>
+          <p class="step__desc">Бесплатный выезд замерщика. Обсуждаем пожелания, бюджет и сроки — фиксируем техзадание.</p>
+        </div>
+      </div>
+      <div class="step">
+        <div class="step__num">2</div>
+        <div>
+          <p class="step__title">Дизайн-проект</p>
+          <p class="step__desc">3D-визуализация всех помещений, подбор материалов и мебели. Видите результат до начала работ.</p>
+        </div>
+      </div>
+      <div class="step">
+        <div class="step__num">3</div>
+        <div>
+          <p class="step__title">Смета и договор</p>
+          <p class="step__desc">Детальная смета с фиксированными ценами. Подписываем договор с гарантиями. Цена не изменится.</p>
+        </div>
+      </div>
+      <div class="step">
+        <div class="step__num">4</div>
+        <div>
+          <p class="step__title">Ремонт</p>
+          <p class="step__desc">Бригада под руководством персонального прораба. Ежедневный фотоотчёт в WhatsApp или Telegram.</p>
+        </div>
+      </div>
+      <div class="step">
+        <div class="step__num">5</div>
+        <div>
+          <p class="step__title">Сдача объекта</p>
+          <p class="step__desc">Приёмка по чек-листу, финальный клининг, акт выполненных работ и гарантийный лист.</p>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<div class="diamond">&#9670; &#9670; &#9670;</div>
+
+<!-- 4. PORTFOLIO -->
+<section id="portfolio" class="port section">
+  <div class="container">
+    <p class="section__eyebrow">Наши работы</p>
+    <h2 class="section__title">ПОРТФОЛИО <em>проектов</em></h2>
+    <div class="port__grid">
+      <div class="pcard">
+        <div class="pcard__bg pb1"></div>
+        <div class="pcard__fg">
+          <span class="pcard__area">87 м²</span>
+          <p class="pcard__name">ЖК «Зиларт»</p>
+          <p class="pcard__style">Современная классика</p>
+        </div>
+      </div>
+      <div class="pcard">
+        <div class="pcard__bg pb2"></div>
+        <div class="pcard__fg">
+          <span class="pcard__area">55 м²</span>
+          <p class="pcard__name">ЖК «Символ»</p>
+          <p class="pcard__style">Скандинавский стиль</p>
+        </div>
+      </div>
+      <div class="pcard">
+        <div class="pcard__bg pb3"></div>
+        <div class="pcard__fg">
+          <span class="pcard__area">120 м²</span>
+          <p class="pcard__name">Арбат, вторичка</p>
+          <p class="pcard__style">Лофт</p>
+        </div>
+      </div>
+      <div class="pcard">
+        <div class="pcard__bg pb4"></div>
+        <div class="pcard__fg">
+          <span class="pcard__area">72 м²</span>
+          <p class="pcard__name">ЖК «Headliner»</p>
+          <p class="pcard__style">Неоклассика</p>
+        </div>
+      </div>
+      <div class="pcard">
+        <div class="pcard__bg pb5"></div>
+        <div class="pcard__fg">
+          <span class="pcard__area">83 м²</span>
+          <p class="pcard__name">Хамовники</p>
+          <p class="pcard__style">Минимализм</p>
+        </div>
+      </div>
+      <div class="pcard">
+        <div class="pcard__bg pb6"></div>
+        <div class="pcard__fg">
+          <span class="pcard__area">38 м²</span>
+          <p class="pcard__name">Студия, Пресня</p>
+          <p class="pcard__style">Japandi</p>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- 5. ADVANTAGES -->
+<section id="advantages" class="advantages section">
+  <div class="container">
+    <p class="section__eyebrow">Почему мы</p>
+    <h2 class="section__title">НАШИ <em>гарантии</em></h2>
+    <div class="adv__grid">
+      <div class="adv">
+        <div class="adv__ico"><svg viewBox="0 0 32 32" fill="none"><rect x="3" y="5" width="26" height="22" stroke="currentColor" stroke-width="1.2"/><path d="M3 12h26M9 5v7M23 5v7" stroke="currentColor" stroke-width="1.2"/><path d="M9 18h14M9 23h8" stroke="currentColor" stroke-width="1" stroke-linecap="round"/></svg></div>
+        <p class="adv__title">Фиксированная смета в договоре</p>
+        <p class="adv__desc">Цена согласованных работ не изменится. Никаких доплат и неприятных сюрпризов в конце — только то, что подписали в документе.</p>
+      </div>
+      <div class="adv">
+        <div class="adv__ico"><svg viewBox="0 0 32 32" fill="none"><path d="M16 3l11 4v9c0 7-11 13-11 13S5 23 5 16V7l11-4z" stroke="currentColor" stroke-width="1.2"/><path d="M10 16l4 4 8-8" stroke="currentColor" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round"/></svg></div>
+        <p class="adv__title">Гарантия 3 года</p>
+        <p class="adv__desc">Письменная гарантия на все виды выполненных работ. Устраним выявленный дефект за наш счёт без лишних разговоров.</p>
+      </div>
+      <div class="adv">
+        <div class="adv__ico"><svg viewBox="0 0 32 32" fill="none"><rect x="4" y="8" width="24" height="18" rx="1" stroke="currentColor" stroke-width="1.2"/><path d="M4 14h24" stroke="currentColor" stroke-width="1.2"/><path d="M20 6v4M12 6v4" stroke="currentColor" stroke-width="1.2" stroke-linecap="round"/><circle cx="10" cy="21" r="2" stroke="currentColor" stroke-width="1"/><path d="M14 21h8" stroke="currentColor" stroke-width="1" stroke-linecap="round"/></svg></div>
+        <p class="adv__title">Оплата по этапам</p>
+        <p class="adv__desc">Платите только за фактически выполненный этап работ. Без предоплаты за весь объём — деньги только за реальный результат.</p>
+      </div>
+      <div class="adv">
+        <div class="adv__ico"><svg viewBox="0 0 32 32" fill="none"><circle cx="16" cy="10" r="5" stroke="currentColor" stroke-width="1.2"/><path d="M6 28c0-5.52 4.48-10 10-10s10 4.48 10 10" stroke="currentColor" stroke-width="1.2" stroke-linecap="round"/><path d="M22 18l2 2 4-4" stroke="currentColor" stroke-width="1.2" stroke-linecap="round" stroke-linejoin="round"/></svg></div>
+        <p class="adv__title">Свой прораб</p>
+        <p class="adv__desc">Персональный куратор объекта с опытом 8+ лет. Он отвечает за качество каждой бригады и соблюдение сроков на вашем объекте.</p>
+      </div>
+      <div class="adv">
+        <div class="adv__ico"><svg viewBox="0 0 32 32" fill="none"><rect x="5" y="5" width="22" height="17" rx="1" stroke="currentColor" stroke-width="1.2"/><path d="M9 26h14M16 22v4" stroke="currentColor" stroke-width="1.2" stroke-linecap="round"/><circle cx="16" cy="13" r="4" stroke="currentColor" stroke-width="1.2"/><circle cx="16" cy="13" r="1.5" fill="currentColor"/></svg></div>
+        <p class="adv__title">Ежедневный фотоотчёт</p>
+        <p class="adv__desc">Прораб присылает фото прогресса каждый день в Telegram или WhatsApp. Вы всегда знаете, что происходит на объекте.</p>
+      </div>
+      <div class="adv adv--highlight">
+        <div class="adv__ico"><svg viewBox="0 0 32 32" fill="none"><path d="M16 4l3 7h7l-5.5 4 2 7-6.5-4-6.5 4 2-7L6 11h7l3-7z" stroke="currentColor" stroke-width="1.2" stroke-linejoin="round"/></svg></div>
+        <p class="adv__title">120+ проектов с 2017 года</p>
+        <p class="adv__desc">Работаем в Москве и ближнем Подмосковье. 98% клиентов рекомендуют FORMA знакомым — это лучший показатель нашей работы.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- 6. CALCULATOR -->
+<section id="calculator" class="calculator section">
+  <div class="container">
+    <p class="section__eyebrow">Калькулятор стоимости</p>
+    <h2 class="section__title">ПРИМЕРНАЯ<br><em>стоимость ремонта</em></h2>
+    <div class="calc__wrap">
+      <div class="calc__fields">
+        <div class="fld">
+          <label for="c-area">Площадь квартиры</label>
+          <div class="fld-row">
+            <input type="number" id="c-area" min="15" max="500" value="60" placeholder="60">
+            <div class="fld-unit">м²</div>
+          </div>
+        </div>
+        <div class="fld">
+          <label for="c-type">Тип ремонта</label>
+          <select id="c-type">
+            <option value="cosmetic">Косметический</option>
+            <option value="capital" selected>Капитальный</option>
+            <option value="design">Дизайнерский</option>
+            <option value="newbuild">Ремонт новостройки</option>
+          </select>
+        </div>
+        <p style="font-size:11px;color:var(--sand);line-height:1.72;">Калькулятор даёт ориентировочную сумму работ без учёта стоимости материалов, перепланировки и нестандартных решений. Точная смета — после бесплатного выезда замерщика.</p>
+        <a href="#contact" class="btn btn--gold">Получить точный расчёт</a>
+      </div>
+      <div class="calc__result">
+        <p class="calc__res-label">Примерная стоимость работ</p>
+        <div class="calc__res-price" id="c-price">540 000 — 660 000 <em>₽</em></div>
+        <div class="calc__res-row">
+          <span>Тип ремонта</span>
+          <span id="c-type-label">Капитальный</span>
+        </div>
+        <div class="calc__res-row">
+          <span>Площадь</span>
+          <span id="c-area-label">60 м²</span>
+        </div>
+        <div class="calc__res-row">
+          <span>Дизайн-проект</span>
+          <span style="color:var(--gold)">Бесплатно при заказе</span>
+        </div>
+        <p class="calc__note">Стоимость материалов рассчитывается отдельно и зависит от выбранных позиций. Возможна рассрочка 0% на 12 месяцев.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- 7. REVIEWS -->
+<section id="reviews" class="reviews section">
+  <div class="container">
+    <p class="section__eyebrow">Отзывы клиентов</p>
+    <h2 class="section__title">ЧТО ГОВОРЯТ<br><em>наши клиенты</em></h2>
+    <div class="rev__grid">
+      <div class="rev">
+        <p class="rev__stars">&#9733;&#9733;&#9733;&#9733;&#9733;</p>
+        <p class="rev__quote">«Делали капитальный ремонт в трёхкомнатной на Пресне. Всё строго по смете, ни рубля сверх. Прораб Сергей присылал фото каждый день — это очень успокаивало. Сдали на 4 дня раньше срока.»</p>
+        <div class="rev__who">
+          <strong>Анна К.</strong>
+          <span>Пресненский район · 94 м² · Капитальный ремонт</span>
+        </div>
+      </div>
+      <div class="rev">
+        <p class="rev__stars">&#9733;&#9733;&#9733;&#9733;&#9733;</p>
+        <p class="rev__quote">«Брали дизайнерский пакет. 3D-визуализация была очень детальной, дизайнер учла все пожелания и предложила несколько вариантов планировки. Результат превзошёл ожидания — соседи просят контакты.»</p>
+        <div class="rev__who">
+          <strong>Михаил и Елена В.</strong>
+          <span>Хамовники · 108 м² · Дизайнерский ремонт</span>
+        </div>
+      </div>
+      <div class="rev">
+        <p class="rev__stars">&#9733;&#9733;&#9733;&#9733;&#9733;</p>
+        <p class="rev__quote">«Новостройку в Зиларт сдали безупречно. Ребята хорошо знают специфику монолитных домов. Чистовая отделка сделана аккуратно, замечаний при финальной приёмке почти не было.»</p>
+        <div class="rev__who">
+          <strong>Сергей Р.</strong>
+          <span>Марьина Роща · 67 м² · Ремонт новостройки</span>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- 8. FAQ -->
+<section id="faq" class="faq-section section">
+  <div class="container">
+    <p class="section__eyebrow">Частые вопросы</p>
+    <h2 class="section__title">ОТВЕТЫ<br><em>на вопросы</em></h2>
+    <div class="faq__list">
+      <div class="fq open">
+        <button class="fq__btn">Сколько занимает ремонт «под ключ»?<span class="fq__icon">+</span></button>
+        <div class="fq__ans"><p>Косметический — от 2 до 4 недель. Капитальный ремонт двух- или трёхкомнатной квартиры — в среднем 45–60 дней. Дизайнерский ремонт с разработкой проекта — от 60 до 90 дней. Точные сроки фиксируются в договоре, за нарушение по нашей вине — неустойка.</p></div>
+      </div>
+      <div class="fq">
+        <button class="fq__btn">Может ли смета измениться после подписания договора?<span class="fq__icon">+</span></button>
+        <div class="fq__ans"><p>Смета фиксируется в договоре и не меняется в одностороннем порядке. Если вы захотите добавить работы или выбрать другие материалы — подписываем дополнительное соглашение. Скрытых доплат нет.</p></div>
+      </div>
+      <div class="fq">
+        <button class="fq__btn">Кто закупает строительные материалы?<span class="fq__icon">+</span></button>
+        <div class="fq__ans"><p>По умолчанию материалы закупаем мы — экономите время и получаете скидки поставщиков. Все чеки и накладные передаём заказчику. Если хотите закупать самостоятельно — работаем и с материалами клиента.</p></div>
+      </div>
+      <div class="fq">
+        <button class="fq__btn">Как защищены мои интересы в договоре?<span class="fq__icon">+</span></button>
+        <div class="fq__ans"><p>В договоре прописаны фиксированная цена, чёткие сроки с неустойкой за просрочку, перечень работ и материалов, поэтапная оплата, гарантийные обязательства на 3 года и условия расторжения. Полностью по ГК РФ.</p></div>
+      </div>
+      <div class="fq">
+        <button class="fq__btn">Есть ли рассрочка или ипотека на ремонт?<span class="fq__icon">+</span></button>
+        <div class="fq__ans"><p>Да. Работаем с банками-партнёрами: Сбер, ВТБ, Т-Банк — рассрочка 0% на 12 месяцев. Также доступна поэтапная оплата: 20% при подписании договора, остальное — по завершённым этапам работ.</p></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- 9. CONTACT FORM -->
+<section id="contact" class="contact section">
+  <div class="container">
+    <div class="contact__grid">
+      <div class="contact__pitch">
+        <p class="section__eyebrow">Оставьте заявку</p>
+        <h2>ОБСУДИМ<br><em>ваш ремонт</em></h2>
+        <p>Перезвоним в течение 30 минут в рабочее время, ответим на вопросы и назначим бесплатный выезд замерщика.</p>
+        <div class="contact__perks">
+          <div class="perk">Бесплатный выезд замерщика</div>
+          <div class="perk">Дизайн-проект в подарок при заказе ремонта</div>
+          <div class="perk">Расчёт сметы за 3 рабочих дня</div>
+          <div class="perk">Рассрочка 0% на 12 месяцев</div>
+        </div>
+      </div>
+      <div>
+        <form class="cform" id="cform">
+          <div class="cform-row">
+            <div class="cf">
+              <label for="f-name">Ваше имя</label>
+              <input type="text" id="f-name" placeholder="Александр" required>
+            </div>
+            <div class="cf">
+              <label for="f-phone">Телефон</label>
+              <input type="tel" id="f-phone" placeholder="+7 (___) ___-__-__" required>
+            </div>
+          </div>
+          <div class="cf">
+            <label for="f-area">Площадь квартиры</label>
+            <select id="f-area">
+              <option>До 40 м²</option>
+              <option>40–60 м²</option>
+              <option selected>60–90 м²</option>
+              <option>90–120 м²</option>
+              <option>Более 120 м²</option>
+            </select>
+          </div>
+          <div class="cf">
+            <label for="f-type">Тип ремонта</label>
+            <select id="f-type">
+              <option>Косметический</option>
+              <option selected>Капитальный</option>
+              <option>Дизайнерский</option>
+              <option>Ремонт новостройки</option>
+              <option>Пока не определился</option>
+            </select>
+          </div>
+          <div class="consent-row">
+            <input type="checkbox" id="f-consent" checked required>
+            <label for="f-consent">Нажимая «Отправить заявку», я соглашаюсь с <a href="#">политикой обработки персональных данных</a> и даю согласие на обработку моих данных.</label>
+          </div>
+          <button type="submit" class="btn btn--gold" id="f-submit">Отправить заявку</button>
+          <div id="form-success" hidden>
+            Заявка отправлена. Перезвоним в течение 30 минут!
+          </div>
+        </form>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- 10. CONTACTS + FOOTER -->
+<footer id="contacts" class="footer">
+  <div class="container">
+    <div class="footer__info">
+      <div>
+        <p class="finfo__label">Телефон</p>
+        <p class="finfo__val"><a href="tel:+74951234567">+7 (495) 123-45-67</a></p>
+        <p class="finfo__sub">Пн–Пт 9:00–20:00 · Сб 10:00–18:00</p>
+      </div>
+      <div>
+        <p class="finfo__label">Адрес офиса</p>
+        <p class="finfo__val">Москва, ул. Тверская, 12</p>
+        <p class="finfo__sub">м. Охотный Ряд · 5 мин пешком</p>
+      </div>
+      <div>
+        <p class="finfo__label">Написать нам</p>
+        <p class="finfo__val"><a href="mailto:hello@forma-studio.ru">hello@forma-studio.ru</a></p>
+        <div class="finfo__btns">
+          <a href="#">Telegram</a>
+          <a href="#">WhatsApp</a>
+        </div>
+      </div>
+    </div>
+    <div class="bigtype">
+      <span class="bigtype__word" id="bigtype">FORMA</span>
+    </div>
+    <div class="footer__bottom">
+      <span>© 2024 FORMA Studio · Дизайн и ремонт квартир в Москве</span>
+      <div class="footer__links">
+        <a href="#">Политика конфиденциальности</a>
+        <a href="#">Договор оферты</a>
+      </div>
+    </div>
+  </div>
+</footer>
+
+<script>
+// ── CALCULATOR ──
+var rates = {
+  cosmetic:  { min: 4500,  max: 5500,  label: 'Косметический' },
+  capital:   { min: 9000,  max: 11000, label: 'Капитальный' },
+  design:    { min: 16000, max: 20000, label: 'Дизайнерский' },
+  newbuild:  { min: 7500,  max: 9500,  label: 'Новостройка' }
+};
+
+function fmtNum(n) {
+  return n.toLocaleString('ru-RU');
+}
+
+function calcUpdate() {
+  var area = parseInt(document.getElementById('c-area').value, 10) || 0;
+  var type = document.getElementById('c-type').value;
+  var r = rates[type];
+  document.getElementById('c-price').innerHTML = fmtNum(area * r.min) + ' — ' + fmtNum(area * r.max) + ' <em>₽</em>';
+  document.getElementById('c-type-label').textContent = r.label;
+  document.getElementById('c-area-label').textContent = area + ' м²';
+}
+document.getElementById('c-area').addEventListener('input', calcUpdate);
+document.getElementById('c-type').addEventListener('change', calcUpdate);
+calcUpdate();
+
+// ── FAQ ACCORDION ──
+document.querySelectorAll('.fq__btn').forEach(function(btn) {
+  btn.addEventListener('click', function() {
+    var item = btn.closest('.fq');
+    var isOpen = item.classList.contains('open');
+    document.querySelectorAll('.fq').forEach(function(i) { i.classList.remove('open'); });
+    if (!isOpen) item.classList.add('open');
+  });
+});
+
+// ── FORM ──
+document.getElementById('cform').addEventListener('submit', function(e) {
+  e.preventDefault();
+  var btn = document.getElementById('f-submit');
+  btn.textContent = 'Отправляем…';
+  btn.disabled = true;
+  setTimeout(function() {
+    btn.hidden = true;
+    document.getElementById('form-success').hidden = false;
+  }, 900);
+});
+
+// ── BIGTYPE PARALLAX ──
+window.addEventListener('scroll', function() {
+  var el = document.getElementById('bigtype');
+  if (!el) return;
+  var rect = el.getBoundingClientRect();
+  if (rect.bottom < 0 || rect.top > window.innerHeight) return;
+  var shift = (window.pageYOffset - (el.offsetTop - window.innerHeight)) * 0.06;
+  el.style.transform = 'translateX(-' + Math.max(0, shift) + 'px)';
+}, { passive: true });
+
+// ── SCROLL ANIMATIONS ──
+if (!window.matchMedia('(prefers-reduced-motion: reduce)').matches) {
+  var obs = new IntersectionObserver(function(entries) {
+    entries.forEach(function(e) {
+      if (e.isIntersecting) { e.target.classList.add('visible'); obs.unobserve(e.target); }
+    });
+  }, { threshold: 0.15 });
+  document.querySelectorAll('.section__title, .svc, .step, .pcard, .adv, .rev').forEach(function(el) {
+    el.classList.add('fade-up');
+    obs.observe(el);
+  });
+}
+</script>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
+<script>
+(function() {
+  if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) return;
+
+  var container = document.getElementById('hero-shader');
+  if (!container) return;
+
+  try {
+    var renderer = new THREE.WebGLRenderer({ alpha: true, antialias: false });
+    renderer.setPixelRatio(Math.min(window.devicePixelRatio, 2));
+    renderer.setSize(container.offsetWidth, container.offsetHeight);
+    container.appendChild(renderer.domElement);
+  } catch (e) { return; }
+
+  var scene = new THREE.Scene();
+  var camera = new THREE.OrthographicCamera(-1, 1, 1, -1, 0, 1);
+
+  var vertexShader = 'void main(){gl_Position=vec4(position,1.0);}';
+
+  var fragmentShader = [
+    'precision highp float;',
+    'uniform vec2 resolution;',
+    'uniform float time;',
+    'void main(void){',
+    '  vec2 uv=(gl_FragCoord.xy*2.0-resolution.xy)/min(resolution.x,resolution.y);',
+    '  float t=time*0.05;',
+    '  float lineWidth=0.002;',
+    '  vec3 warm=vec3(0.0);',
+    '  for(int j=0;j<3;j++){',
+    '    for(int i=0;i<5;i++){',
+    '      warm[j]+=lineWidth*float(i*i)/abs(fract(t-0.01*float(j)+float(i)*0.01)*5.0-length(uv)+mod(uv.x+uv.y,0.2));',
+    '    }',
+    '  }',
+    '  vec3 gold=vec3(0.784,0.643,0.353);',
+    '  vec3 amber=vec3(0.90,0.68,0.35);',
+    '  vec3 mocha=vec3(0.36,0.29,0.22);',
+    '  float lum=warm.r*0.4+warm.g*0.35+warm.b*0.25;',
+    '  vec3 col=mix(mocha,mix(gold,amber,clamp(lum*0.8,0.0,1.0)),clamp(lum,0.0,1.0));',
+    '  col*=lum*1.2;',
+    '  gl_FragColor=vec4(col,1.0);',
+    '}'
+  ].join('\n');
+
+  var uniforms = {
+    time: { value: 0.0 },
+    resolution: { value: new THREE.Vector2(container.offsetWidth, container.offsetHeight) }
+  };
+
+  var geometry = new THREE.PlaneGeometry(2, 2);
+  var material = new THREE.ShaderMaterial({
+    vertexShader: vertexShader,
+    fragmentShader: fragmentShader,
+    uniforms: uniforms
+  });
+
+  scene.add(new THREE.Mesh(geometry, material));
+
+  function onResize() {
+    var w = container.offsetWidth, h = container.offsetHeight;
+    renderer.setSize(w, h);
+    uniforms.resolution.value.set(w, h);
+  }
+  window.addEventListener('resize', onResize);
+
+  var raf;
+  function animate() {
+    raf = requestAnimationFrame(animate);
+    uniforms.time.value += 0.05;
+    renderer.render(scene, camera);
+  }
+  animate();
+})();
+</script>
+
+<script>
+(function() {
+  var MBTN_VS = '#version 300 es\nprecision mediump float;\nlayout(location=0) in vec4 a_position;\nuniform vec2 u_resolution;\nuniform float u_pixelRatio;\nuniform float u_originX;\nuniform float u_originY;\nuniform float u_worldWidth;\nuniform float u_worldHeight;\nuniform float u_fit;\nuniform float u_scale;\nuniform float u_rotation;\nuniform float u_offsetX;\nuniform float u_offsetY;\nout vec2 v_objectUV;\nout vec2 v_responsiveUV;\nout vec2 v_responsiveBoxGivenSize;\nvec3 getBoxSize(float boxRatio,vec2 givenBoxSize){vec2 box=vec2(0.);box.x=boxRatio*min(givenBoxSize.x/boxRatio,givenBoxSize.y);float noFitBoxWidth=box.x;if(u_fit==1.){box.x=boxRatio*min(u_resolution.x/boxRatio,u_resolution.y);}else if(u_fit==2.){box.x=boxRatio*max(u_resolution.x/boxRatio,u_resolution.y);}box.y=box.x/boxRatio;return vec3(box,noFitBoxWidth);}\nvoid main(){gl_Position=a_position;vec2 uv=gl_Position.xy*.5;vec2 boxOrigin=vec2(.5-u_originX,u_originY-.5);vec2 givenBoxSize=vec2(u_worldWidth,u_worldHeight);givenBoxSize=max(givenBoxSize,vec2(1.))*u_pixelRatio;float r=u_rotation*3.14159265358979323846/180.;mat2 graphicRotation=mat2(cos(r),sin(r),-sin(r),cos(r));vec2 graphicOffset=vec2(-u_offsetX,u_offsetY);float fixedRatio=1.;vec2 fixedRatioBoxGivenSize=vec2((u_worldWidth==0.)?u_resolution.x:givenBoxSize.x,(u_worldHeight==0.)?u_resolution.y:givenBoxSize.y);vec2 objectBoxSize=getBoxSize(fixedRatio,fixedRatioBoxGivenSize).xy;vec2 objectWorldScale=u_resolution.xy/objectBoxSize;v_objectUV=uv;v_objectUV*=objectWorldScale;v_objectUV+=boxOrigin*(objectWorldScale-1.);v_objectUV+=graphicOffset;v_objectUV/=u_scale;v_objectUV=graphicRotation*v_objectUV;v_responsiveBoxGivenSize=vec2((u_worldWidth==0.)?u_resolution.x:givenBoxSize.x,(u_worldHeight==0.)?u_resolution.y:givenBoxSize.y);float responsiveRatio=v_responsiveBoxGivenSize.x/v_responsiveBoxGivenSize.y;vec2 responsiveBoxSize=getBoxSize(responsiveRatio,v_responsiveBoxGivenSize).xy;vec2 responsiveBoxScale=u_resolution.xy/responsiveBoxSize;v_responsiveUV=uv;v_responsiveUV*=responsiveBoxScale;v_responsiveUV+=boxOrigin*(responsiveBoxScale-1.);v_responsiveUV+=graphicOffset;v_responsiveUV/=u_scale;v_responsiveUV.x*=responsiveRatio;v_responsiveUV=graphicRotation*v_responsiveUV;v_responsiveUV.x/=responsiveRatio;}';
+
+  var MBTN_FS = '#version 300 es\nprecision mediump float;\nuniform vec2 u_resolution;\nuniform float u_time;\nuniform vec4 u_colorBack;\nuniform vec4 u_colorTint;\nuniform float u_softness;\nuniform float u_repetition;\nuniform float u_shiftRed;\nuniform float u_shiftBlue;\nuniform float u_distortion;\nuniform float u_contour;\nuniform float u_angle;\nin vec2 v_objectUV;\nin vec2 v_responsiveUV;\nin vec2 v_responsiveBoxGivenSize;\nout vec4 fragColor;\n#define TWO_PI 6.28318530718\n#define PI 3.14159265358979323846\nvec2 rotate(vec2 uv,float th){return mat2(cos(th),sin(th),-sin(th),cos(th))*uv;}\nvec3 permute(vec3 x){return mod(((x*34.0)+1.0)*x,289.0);}\nfloat snoise(vec2 v){const vec4 C=vec4(0.211324865405187,0.366025403784439,-0.577350269189626,0.024390243902439);vec2 i=floor(v+dot(v,C.yy));vec2 x0=v-i+dot(i,C.xx);vec2 i1;i1=(x0.x>x0.y)?vec2(1.0,0.0):vec2(0.0,1.0);vec4 x12=x0.xyxy+C.xxzz;x12.xy-=i1;i=mod(i,289.0);vec3 p=permute(permute(i.y+vec3(0.0,i1.y,1.0))+i.x+vec3(0.0,i1.x,1.0));vec3 m=max(0.5-vec3(dot(x0,x0),dot(x12.xy,x12.xy),dot(x12.zw,x12.zw)),0.0);m=m*m;m=m*m;vec3 x=2.0*fract(p*C.www)-1.0;vec3 h=abs(x)-0.5;vec3 ox=floor(x+0.5);vec3 a0=x-ox;m*=1.79284291400159-0.85373472095314*(a0*a0+h*h);vec3 g;g.x=a0.x*x0.x+h.x*x0.y;g.yz=a0.yz*x12.xz+h.yz*x12.yw;return 130.0*dot(m,g);}\nfloat getColorChanges(float c1,float c2,float stripe_p,vec3 w,float blur,float bump,float tint){float ch=mix(c2,c1,smoothstep(.0,2.*blur,stripe_p));float border=w[0];ch=mix(ch,c2,smoothstep(border,border+2.*blur,stripe_p));border=w[0]+.4*(1.-bump)*w[1];ch=mix(ch,c1,smoothstep(border,border+2.*blur,stripe_p));border=w[0]+.5*(1.-bump)*w[1];ch=mix(ch,c2,smoothstep(border,border+2.*blur,stripe_p));border=w[0]+w[1];ch=mix(ch,c1,smoothstep(border,border+2.*blur,stripe_p));float gradient_t=(stripe_p-w[0]-w[1])/w[2];float gradient=mix(c1,c2,smoothstep(0.,1.,gradient_t));ch=mix(ch,gradient,smoothstep(border,border+.5*blur,stripe_p));ch=mix(ch,1.-min(1.,(1.-ch)/max(tint,0.0001)),u_colorTint.a);return ch;}\nvoid main(){const float firstFrameOffset=2.8;float t=.3*(u_time+firstFrameOffset);vec2 uv=v_objectUV+.5;uv.y=1.-uv.y;float cycleWidth=u_repetition;float edge=0.;vec2 rotatedUV=uv-vec2(.5);float angle=(-u_angle+70.)*PI/180.;float cosA=cos(angle);float sinA=sin(angle);rotatedUV=vec2(rotatedUV.x*cosA-rotatedUV.y*sinA,rotatedUV.x*sinA+rotatedUV.y*cosA)+vec2(.5);vec2 shapeUV=uv-.5;shapeUV*=.67;edge=pow(clamp(3.*length(shapeUV),0.,1.),18.);edge=mix(smoothstep(.9-2.*fwidth(edge),.9,edge),edge,smoothstep(0.0,0.4,u_contour));float opacity=1.-smoothstep(.9-2.*fwidth(edge),.9,edge);edge=1.2*edge;float diagBLtoTR=rotatedUV.x-rotatedUV.y;float diagTLtoBR=rotatedUV.x+rotatedUV.y;vec3 color=vec3(0.);vec3 color1=vec3(.98,0.98,1.);vec3 color2=vec3(.1,.1,.1+.1*smoothstep(.7,1.3,diagTLtoBR));vec2 grad_uv=uv-.5;float dist=length(grad_uv+vec2(0.,.2*diagBLtoTR));grad_uv=rotate(grad_uv,(.25-.2*diagBLtoTR)*PI);float direction=grad_uv.x;float bump=pow(1.8*dist,1.2);bump=1.-bump;bump*=pow(uv.y,.3);float thin_strip_1_ratio=.12/cycleWidth*(1.-.4*bump);float thin_strip_2_ratio=.07/cycleWidth*(1.+.4*bump);float wide_strip_ratio=(1.-thin_strip_1_ratio-thin_strip_2_ratio);float thin_strip_1_width=cycleWidth*thin_strip_1_ratio;float thin_strip_2_width=cycleWidth*thin_strip_2_ratio;float noise=snoise(uv-t);edge+=(1.-edge)*u_distortion*noise;direction+=diagBLtoTR;float contour=0.;direction-=2.*noise*diagBLtoTR*(smoothstep(0.,1.,edge)*(1.0-smoothstep(0.,1.,edge)));direction*=mix(1.,1.-edge,smoothstep(.5,1.,u_contour));direction-=1.7*edge*smoothstep(.5,1.,u_contour);direction+=.2*pow(u_contour,4.)*(1.0-smoothstep(0.,1.,edge));bump*=clamp(pow(uv.y,.1),.3,1.);direction*=(.1+(1.1-edge)*bump);direction*=(.4+.6*(1.0-smoothstep(.5,1.,edge)));direction+=.18*(smoothstep(.1,.2,uv.y)*(1.0-smoothstep(.2,.4,uv.y)));direction+=.03*(smoothstep(.1,.2,1.-uv.y)*(1.0-smoothstep(.2,.4,1.-uv.y)));direction*=(.5+.5*pow(uv.y,2.));direction*=cycleWidth;direction-=t;float colorDispersion=(1.-bump);colorDispersion=clamp(colorDispersion,0.,1.);float dispersionRed=colorDispersion;dispersionRed+=.03*bump*noise;dispersionRed+=5.*(smoothstep(-.1,.2,uv.y)*(1.0-smoothstep(.1,.5,uv.y)))*(smoothstep(.4,.6,bump)*(1.0-smoothstep(.4,1.,bump)));dispersionRed-=diagBLtoTR;float dispersionBlue=colorDispersion;dispersionBlue*=1.3;dispersionBlue+=(smoothstep(0.,.4,uv.y)*(1.0-smoothstep(.1,.8,uv.y)))*(smoothstep(.4,.6,bump)*(1.0-smoothstep(.4,.8,bump)));dispersionBlue-=.2*edge;dispersionRed*=(u_shiftRed/20.);dispersionBlue*=(u_shiftBlue/20.);float blur=u_softness/15.+.3*contour;vec3 w=vec3(thin_strip_1_width,thin_strip_2_width,wide_strip_ratio);w[1]-=.02*smoothstep(.0,1.,edge+bump);float stripe_r=fract(direction+dispersionRed);float r=getColorChanges(color1.r,color2.r,stripe_r,w,blur+fwidth(stripe_r),bump,u_colorTint.r);float stripe_g=fract(direction);float g=getColorChanges(color1.g,color2.g,stripe_g,w,blur+fwidth(stripe_g),bump,u_colorTint.g);float stripe_b=fract(direction-dispersionBlue);float b=getColorChanges(color1.b,color2.b,stripe_b,w,blur+fwidth(stripe_b),bump,u_colorTint.b);color=vec3(r,g,b);color*=opacity;vec3 bgColor=u_colorBack.rgb*u_colorBack.a;color=color+bgColor*(1.-opacity);opacity=opacity+u_colorBack.a*(1.-opacity);color+=1./256.*(fract(sin(dot(.014*gl_FragCoord.xy,vec2(12.9898,78.233)))*43758.5453123)-.5);fragColor=vec4(color,opacity);}';
+
+  function parseColor(val) {
+    if (typeof val !== 'string') return [1,1,1,1];
+    var hex = val.trim().replace('#','');
+    if (hex.length === 3) hex = hex[0]+hex[0]+hex[1]+hex[1]+hex[2]+hex[2];
+    if (hex.length === 6) hex += 'ff';
+    if (hex.length !== 8) return [1,1,1,1];
+    var n = parseInt(hex, 16);
+    if (isNaN(n)) return [1,1,1,1];
+    return [(n>>24&255)/255,(n>>16&255)/255,(n>>8&255)/255,(n&255)/255];
+  }
+
+  function makeShader(gl, type, src) {
+    var s = gl.createShader(type);
+    if (!s) return null;
+    gl.shaderSource(s, src);
+    gl.compileShader(s);
+    if (!gl.getShaderParameter(s, gl.COMPILE_STATUS)) { gl.deleteShader(s); return null; }
+    return s;
+  }
+
+  function MetallicMount(parent, uniforms, speed) {
+    this.parent = parent;
+    this.uniforms = uniforms;
+    this.speed = speed;
+    this.disposed = false;
+    this.rafId = null;
+    this.lastTime = 0;
+    this.frame = 0;
+    this.renderScale = 1;
+    this.resChanged = true;
+    this.inView = true;
+
+    this.canvas = document.createElement('canvas');
+    parent.prepend(this.canvas);
+
+    var gl = this.canvas.getContext('webgl2', { antialias: true, premultipliedAlpha: true, alpha: true });
+    if (!gl) return;
+
+    var vs = makeShader(gl, gl.VERTEX_SHADER, MBTN_VS);
+    var fs = makeShader(gl, gl.FRAGMENT_SHADER, MBTN_FS);
+    if (!vs || !fs) return;
+
+    var prog = gl.createProgram();
+    gl.attachShader(prog, vs);
+    gl.attachShader(prog, fs);
+    gl.linkProgram(prog);
+    gl.deleteShader(vs);
+    gl.deleteShader(fs);
+    if (!gl.getProgramParameter(prog, gl.LINK_STATUS)) { gl.deleteProgram(prog); return; }
+
+    this.gl = gl;
+    this.prog = prog;
+
+    var buf = gl.createBuffer();
+    gl.bindBuffer(gl.ARRAY_BUFFER, buf);
+    gl.bufferData(gl.ARRAY_BUFFER, new Float32Array([-1,-1,1,-1,-1,1,-1,1,1,-1,1,1]), gl.STATIC_DRAW);
+    var pos = gl.getAttribLocation(prog, 'a_position');
+    gl.enableVertexAttribArray(pos);
+    gl.vertexAttribPointer(pos, 2, gl.FLOAT, false, 0, 0);
+    gl.enable(gl.BLEND);
+    gl.blendFunc(gl.ONE, gl.ONE_MINUS_SRC_ALPHA);
+
+    this.loc = {};
+    var names = ['u_time','u_resolution','u_pixelRatio','u_colorBack','u_colorTint','u_softness','u_repetition','u_shiftRed','u_shiftBlue','u_distortion','u_contour','u_angle','u_originX','u_originY','u_worldWidth','u_worldHeight','u_fit','u_scale','u_rotation','u_offsetX','u_offsetY'];
+    for (var i = 0; i < names.length; i++) this.loc[names[i]] = gl.getUniformLocation(prog, names[i]);
+
+    var self = this;
+    this._onResize = function() { self.handleResize(); };
+    this.ro = new ResizeObserver(this._onResize);
+    this.ro.observe(parent);
+
+    if (typeof IntersectionObserver !== 'undefined') {
+      this.io = new IntersectionObserver(function(entries) {
+        self.inView = entries[0] ? entries[0].isIntersecting : true;
+        if (self.inView && self.speed !== 0) self.requestRender();
+      });
+      this.io.observe(parent);
+    }
+
+    this.handleResize();
+    this.renderFrame(performance.now());
+    if (speed !== 0) this.requestRender();
+  }
+
+  MetallicMount.prototype.handleResize = function() {
+    if (!this.gl || this.disposed) return;
+    var w = this.parent.clientWidth, h = this.parent.clientHeight;
+    if (w === 0 || h === 0) return;
+    var dpr = Math.max(1, window.devicePixelRatio);
+    var ts = Math.max(dpr, 2);
+    var tw = Math.round(w) * ts, th = Math.round(h) * ts;
+    var maxPx = 1920 * 1080 * 4;
+    var clamp = Math.min(1, Math.sqrt(maxPx) / Math.sqrt(tw * th));
+    var nw = Math.round(tw * clamp), nh = Math.round(th * clamp);
+    if (this.canvas.width === nw && this.canvas.height === nh) return;
+    this.canvas.width = nw;
+    this.canvas.height = nh;
+    this.renderScale = nw / Math.round(w);
+    this.resChanged = true;
+    this.gl.viewport(0, 0, nw, nh);
+    this.renderFrame(performance.now());
+  };
+
+  MetallicMount.prototype.pushUniforms = function() {
+    var gl = this.gl, u = this.uniforms, l = this.loc;
+    gl.uniform4fv(l.u_colorBack, parseColor(u.colorBack));
+    gl.uniform4fv(l.u_colorTint, parseColor(u.colorTint));
+    gl.uniform1f(l.u_repetition, u.repetition);
+    gl.uniform1f(l.u_softness, u.softness);
+    gl.uniform1f(l.u_angle, u.angle);
+    gl.uniform1f(l.u_distortion, u.distortion);
+    gl.uniform1f(l.u_shiftRed, u.shiftRed);
+    gl.uniform1f(l.u_shiftBlue, u.shiftBlue);
+    gl.uniform1f(l.u_contour, 0);
+    gl.uniform1f(l.u_scale, u.scale);
+    gl.uniform1f(l.u_fit, 1);
+    gl.uniform1f(l.u_rotation, 0);
+    gl.uniform1f(l.u_offsetX, 0.1);
+    gl.uniform1f(l.u_offsetY, -0.1);
+    gl.uniform1f(l.u_originX, 0.5);
+    gl.uniform1f(l.u_originY, 0.5);
+    gl.uniform1f(l.u_worldWidth, 0);
+    gl.uniform1f(l.u_worldHeight, 0);
+  };
+
+  MetallicMount.prototype.renderFrame = function(t) {
+    if (!this.gl || !this.prog || this.disposed) return;
+    var dt = t - this.lastTime;
+    this.lastTime = t;
+    if (this.speed !== 0 && this.inView) this.frame += dt * this.speed;
+    var gl = this.gl;
+    gl.clearColor(0,0,0,0);
+    gl.clear(gl.COLOR_BUFFER_BIT);
+    gl.useProgram(this.prog);
+    gl.uniform1f(this.loc.u_time, this.frame * 1e-3);
+    if (this.resChanged) {
+      gl.uniform2f(this.loc.u_resolution, this.canvas.width, this.canvas.height);
+      gl.uniform1f(this.loc.u_pixelRatio, this.renderScale);
+      this.resChanged = false;
+    }
+    this.pushUniforms();
+    gl.drawArrays(gl.TRIANGLES, 0, 6);
+    if (this.speed !== 0 && this.inView) this.requestRender();
+    else this.rafId = null;
+  };
+
+  MetallicMount.prototype.requestRender = function() {
+    if (this.rafId !== null) cancelAnimationFrame(this.rafId);
+    var self = this;
+    this.rafId = requestAnimationFrame(function(t) { self.renderFrame(t); });
+  };
+
+  MetallicMount.prototype.setSpeed = function(s) {
+    this.speed = s;
+    if (s === 0) { if (this.rafId !== null) cancelAnimationFrame(this.rafId); this.rafId = null; this.renderFrame(performance.now()); return; }
+    if (this.rafId === null) { this.lastTime = performance.now(); this.requestRender(); }
+  };
+
+  var reducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+  var idleSpeed = 0.6, hoverSpeed = 1, clickSpeed = 2.4;
+
+  document.querySelectorAll('.mbtn').forEach(function(el) {
+    var cvs = el.querySelector('.mbtn__cvs');
+    var hit = el.querySelector('.mbtn__hit');
+    if (!cvs) return;
+
+    var sheen = el.getAttribute('data-sheen') || '#ffffffff';
+    var base = el.getAttribute('data-base') || '#000000';
+
+    var mount = new MetallicMount(cvs, {
+      colorBack: base,
+      colorTint: sheen,
+      repetition: 4,
+      softness: 0.5,
+      angle: 45,
+      scale: 8,
+      distortion: 0,
+      shiftRed: 0.3,
+      shiftBlue: 0.3
+    }, reducedMotion ? 0 : idleSpeed);
+
+    el.addEventListener('mouseenter', function() {
+      el.classList.add('is-hovered');
+      if (!reducedMotion && mount.gl) mount.setSpeed(hoverSpeed);
+    });
+    el.addEventListener('mouseleave', function() {
+      el.classList.remove('is-hovered', 'is-pressed');
+      if (!reducedMotion && mount.gl) mount.setSpeed(idleSpeed);
+    });
+    el.addEventListener('mousedown', function() { el.classList.add('is-pressed'); });
+    el.addEventListener('mouseup', function() { el.classList.remove('is-pressed'); });
+
+    if (hit) {
+      hit.addEventListener('click', function(e) {
+        if (!reducedMotion && mount.gl) {
+          mount.setSpeed(clickSpeed);
+          setTimeout(function() {
+            mount.setSpeed(el.classList.contains('is-hovered') ? hoverSpeed : idleSpeed);
+          }, 300);
+        }
+        var rect = hit.getBoundingClientRect();
+        var rip = document.createElement('span');
+        rip.className = 'mbtn__ripple';
+        rip.style.left = (e.clientX - rect.left) + 'px';
+        rip.style.top = (e.clientY - rect.top) + 'px';
+        hit.appendChild(rip);
+        setTimeout(function() { rip.remove(); }, 600);
+      });
+    }
+  });
+})();
+</script>

@@ -1,0 +1,100 @@
+/* ==========================================================================
+   FORMA — Variant Switcher Panel
+   Floating A/B/C buttons, bottom-right, hides on scroll down
+   ========================================================================== */
+
+.variant-switcher {
+  position: fixed;
+  right: var(--space-3);
+  bottom: var(--space-3);
+  z-index: var(--z-switcher);
+  display: flex;
+  gap: var(--space-1);
+  padding: var(--space-1);
+  background: rgba(37, 34, 32, 0.85);
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+  border: 1px solid var(--border);
+  border-radius: var(--radius-lg);
+  box-shadow: var(--shadow-lg);
+  transform: translateY(0);
+  transition: transform var(--duration-normal) var(--ease-out),
+              opacity var(--duration-normal) var(--ease-out);
+  opacity: 1;
+  will-change: transform, opacity;
+}
+
+/* Hidden state — scroll down */
+.variant-switcher.is-hidden {
+  transform: translateY(calc(100% + var(--space-4)));
+  opacity: 0;
+  pointer-events: none;
+}
+
+/* Individual button */
+.variant-switcher__btn {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 44px;
+  height: 44px;
+  border: 2px solid transparent;
+  border-radius: var(--radius-md);
+  background: transparent;
+  color: var(--sand);
+  font-family: var(--font-body);
+  font-size: var(--text-sm);
+  font-weight: 700;
+  letter-spacing: var(--tracking-wide);
+  cursor: pointer;
+  transition: all var(--duration-fast) var(--ease-out);
+  text-decoration: none;
+  line-height: 1;
+}
+
+.variant-switcher__btn:hover {
+  color: var(--ivory);
+  background: rgba(200, 164, 90, 0.15);
+  border-color: rgba(200, 164, 90, 0.3);
+}
+
+/* Active / current variant — gold highlight */
+.variant-switcher__btn.is-active {
+  color: var(--charcoal);
+  background: var(--gold);
+  border-color: var(--gold);
+}
+
+.variant-switcher__btn.is-active:hover {
+  background: var(--gold-light);
+  border-color: var(--gold-light);
+  color: var(--charcoal);
+}
+
+/* --- Responsive: mobile (375px) --- */
+@media (max-width: 767px) {
+  .variant-switcher {
+    right: var(--space-2);
+    bottom: var(--space-2);
+    gap: 6px;
+    padding: 6px;
+  }
+
+  .variant-switcher__btn {
+    width: 40px;
+    height: 40px;
+    font-size: var(--text-xs);
+  }
+}
+
+/* --- prefers-reduced-motion --- */
+@media (prefers-reduced-motion: reduce) {
+  .variant-switcher {
+    transition: none;
+  }
+
+  .variant-switcher.is-hidden {
+    transform: none;
+    opacity: 0;
+  }
+}

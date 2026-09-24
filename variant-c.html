@@ -1,0 +1,641 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>FORMA — Студия дизайна интерьеров</title>
+
+  <!-- Shared tokens (palette, typography, grid, animations) -->
+  <link rel="stylesheet" href="styles/tokens.css">
+  <!-- Variant C specific styles -->
+  <link rel="stylesheet" href="styles/variant-c.css?v=10">
+  <!-- Tweak panel -->
+  <link rel="stylesheet" href="styles/tweaks.css?v=2">
+
+  <!-- Three.js r128 for hero shader -->
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
+</head>
+<body>
+
+  <!-- ================================================================
+       HERO — Конструктор: bold condensed type + geometric canvas
+       ================================================================ -->
+  <section id="hero" class="vc-hero hero">
+    <div class="vc-hero__sticky">
+
+      <!-- Hero background photo (fallback / first frame) -->
+      <img class="vc-hero__photo" src="images/hero/hero-1.jpg" alt="Современный дом с панорамным окном">
+
+      <!-- Scroll-triggered video flythrough -->
+      <video class="vc-hero__video" src="images/hero/hero-video.mp4" muted playsinline preload="auto"></video>
+
+      <!-- Geometric line accents -->
+      <div class="vc-hero__geo-line" aria-hidden="true"></div>
+      <div class="vc-hero__h-line" aria-hidden="true"></div>
+
+      <div class="vc-hero__content">
+        <span class="vc-label vc-hero__label reveal">Студия дизайна интерьеров</span>
+
+        <h1 class="vc-heading vc-hero__title reveal">
+          FORMA
+        </h1>
+
+        <p class="vc-accent-text vc-hero__subtitle reveal">
+          Архитектура пространства
+        </p>
+
+        <p class="vc-body vc-hero__description reveal">
+          Создаём интерьеры, в которых конструктив и эстетика неразделимы.
+          Каждый проект — это точный расчёт и свобода формы.
+        </p>
+
+        <a href="#contact" class="vc-hero__cta reveal">
+          Обсудить проект
+          <span class="vc-hero__cta-arrow" aria-hidden="true">&rarr;</span>
+        </a>
+      </div>
+    </div>
+  </section>
+
+  <!-- ================================================================
+       Geometric divider
+       ================================================================ -->
+  <div class="container">
+    <div class="vc-divider" aria-hidden="true"></div>
+  </div>
+
+  <!-- ================================================================
+       О СТУДИИ — Full-screen photo with text overlay
+       ================================================================ -->
+  <section id="about" class="vc-about section">
+    <div class="vc-about__frame">
+      <img class="vc-about__image parallax-img" src="images/about.jpg" alt="Интерьер гостиной — студия FORMA">
+      <div class="vc-about__overlay">
+        <div class="vc-about__stats">
+          <div class="vc-about__stat">
+            <div class="vc-about__stat-number">12+</div>
+            <div class="vc-about__stat-label">Лет опыта</div>
+          </div>
+          <div class="vc-about__stat">
+            <div class="vc-about__stat-number">180+</div>
+            <div class="vc-about__stat-label">Проектов</div>
+          </div>
+          <div class="vc-about__stat">
+            <div class="vc-about__stat-number">24</div>
+            <div class="vc-about__stat-label">Награды</div>
+          </div>
+        </div>
+        <div class="vc-about__text-block">
+          <span class="vc-label">О студии</span>
+          <h2 class="vc-heading vc-about__title">Строим<br>пространство</h2>
+          <p class="vc-body vc-about__text">Архитектурное мышление, внимание к&nbsp;деталям и&nbsp;полный цикл — от&nbsp;концепции до&nbsp;последнего штриха.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ================================================================
+       Geometric divider (alt)
+       ================================================================ -->
+  <div class="container">
+    <div class="vc-divider vc-divider--alt" aria-hidden="true"></div>
+  </div>
+
+  <!-- ================================================================
+       УСЛУГИ — Large titles + hover-follow images
+       ================================================================ -->
+  <section id="services" class="vc-services section">
+    <div class="container">
+      <div class="vc-services__header">
+        <span class="vc-label reveal">Что мы делаем</span>
+        <h2 class="vc-heading vc-services__title reveal">Услуги</h2>
+      </div>
+
+      <div class="vc-services__list">
+        <div class="vc-services__row" data-service-img="images/services/service-1.jpg">
+          <h3 class="vc-services__row-title">Капитальный ремонт</h3>
+          <p class="vc-services__row-desc">Демонтаж, стяжка, штукатурка, электрика, сантехника, замена окон — всё с нуля</p>
+        </div>
+        <div class="vc-services__row" data-service-img="images/services/service-2.jpg">
+          <h3 class="vc-services__row-title">Дизайнерский ремонт</h3>
+          <p class="vc-services__row-desc">Авторский проект, подбор материалов, 3D-визуализация и реализация под ключ</p>
+        </div>
+        <div class="vc-services__row" data-service-img="images/services/service-3.jpg">
+          <h3 class="vc-services__row-title">Косметический ремонт</h3>
+          <p class="vc-services__row-desc">Обновление отделки, покраска стен, замена покрытий, освежение пространства</p>
+        </div>
+        <div class="vc-services__row" data-service-img="images/services/service-4.jpg">
+          <h3 class="vc-services__row-title">Ремонт под ключ</h3>
+          <p class="vc-services__row-desc">Полный цикл от замера до меблировки — вы получаете готовое пространство</p>
+        </div>
+        <div class="vc-services__row" data-service-img="images/services/service-5.jpg">
+          <h3 class="vc-services__row-title">Авторский надзор</h3>
+          <p class="vc-services__row-desc">Контроль качества, выезды на объект, согласование решений и приёмка работ</p>
+        </div>
+      </div>
+      <div class="vc-services__cursor-img" aria-hidden="true"></div>
+    </div>
+  </section>
+
+  <!-- ================================================================
+       Geometric divider (alt)
+       ================================================================ -->
+  <div class="container">
+    <div class="vc-divider vc-divider--alt" aria-hidden="true"></div>
+  </div>
+
+  <!-- ================================================================
+       ПРОЦЕСС — Timeline with photo (per reference)
+       ================================================================ -->
+  <section id="process" class="vc-process section">
+    <div class="container">
+      <div class="vc-process__header">
+        <h2 class="vc-heading vc-process__title">Как мы работаем</h2>
+        <p class="vc-body vc-process__sub">5 этапов &middot; 60 дней под ключ</p>
+      </div>
+
+      <div class="vc-process__grid">
+        <!-- Left — photo -->
+        <div class="vc-process__photo-wrap">
+          <img class="vc-process__photo parallax-img is-active" src="images/stages/stage-1.jpg" alt="Квартира до начала работ" data-stage="1">
+          <img class="vc-process__photo" src="images/stages/stage-2.jpg" alt="Дизайн-проект" data-stage="2">
+          <img class="vc-process__photo" src="images/stages/stage-3.jpg" alt="Смета" data-stage="3">
+          <img class="vc-process__photo" src="images/stages/stage-4.jpg" alt="Ремонт" data-stage="4">
+          <img class="vc-process__photo" src="images/stages/stage-5.jpg" alt="Сдача объекта" data-stage="5">
+          <div class="vc-process__photo-label">
+            <span class="vc-process__photo-label-text">Квартира до начала работ. День замера</span>
+          </div>
+        </div>
+
+        <!-- Right — timeline -->
+        <div class="vc-process__timeline">
+          <div class="vc-process__line" aria-hidden="true"></div>
+
+          <div class="vc-process__step is-active" data-stage="1">
+            <div class="vc-process__dot"></div>
+            <div class="vc-process__step-content">
+              <span class="vc-process__step-meta">Этап 1 &middot; 1 день</span>
+              <h3 class="vc-process__step-title">Замер</h3>
+              <p class="vc-process__step-text">Приезжаем на объект, снимаем размеры, фотографируем состояние квартиры, разбираем задачу.</p>
+            </div>
+          </div>
+
+          <div class="vc-process__step" data-stage="2">
+            <div class="vc-process__dot"></div>
+            <div class="vc-process__step-content">
+              <span class="vc-process__step-meta">Этап 2 &middot; до 3 недель</span>
+              <h3 class="vc-process__step-title">Дизайн-проект</h3>
+              <p class="vc-process__step-text">Планировочные решения, визуализации комнат и рабочие чертежи для бригады.</p>
+            </div>
+          </div>
+
+          <div class="vc-process__step" data-stage="3">
+            <div class="vc-process__dot"></div>
+            <div class="vc-process__step-content">
+              <span class="vc-process__step-meta">Этап 3 &middot; 3–5 дней</span>
+              <h3 class="vc-process__step-title">Смета</h3>
+              <p class="vc-process__step-text">Детальный расчёт стоимости работ и материалов. Фиксируем бюджет до начала ремонта.</p>
+            </div>
+          </div>
+
+          <div class="vc-process__step" data-stage="4">
+            <div class="vc-process__dot"></div>
+            <div class="vc-process__step-content">
+              <span class="vc-process__step-meta">Этап 4 &middot; 30–45 дней</span>
+              <h3 class="vc-process__step-title">Ремонт</h3>
+              <p class="vc-process__step-text">Черновые и чистовые работы, монтаж, отделка. Фотоотчёты и авторский надзор на каждом этапе.</p>
+            </div>
+          </div>
+
+          <div class="vc-process__step" data-stage="5">
+            <div class="vc-process__dot"></div>
+            <div class="vc-process__step-content">
+              <span class="vc-process__step-meta">Этап 5 &middot; 1 день</span>
+              <h3 class="vc-process__step-title">Сдача объекта</h3>
+              <p class="vc-process__step-text">Финальная приёмка, меблировка, декор, профессиональная съёмка и передача ключей.</p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ================================================================
+       ПОРТФОЛИО — Full-screen stacked pages with vertical flip
+       ================================================================ -->
+  <section id="portfolio" class="vc-portfolio">
+    <div class="vc-portfolio__page" data-index="0">
+      <img class="vc-portfolio__img parallax-img" src="images/portfolio-1.jpg" alt="Лофт на Патриарших — 140 м²">
+      <div class="vc-portfolio__info">
+        <h3 class="vc-portfolio__name">Лофт на Патриарших</h3>
+        <span class="vc-portfolio__meta">Жилой интерьер &middot; 140 м&sup2;</span>
+      </div>
+      <span class="vc-portfolio__counter">01 / 08</span>
+    </div>
+    <div class="vc-portfolio__page" data-index="1">
+      <img class="vc-portfolio__img parallax-img" src="images/portfolio-2.jpg" alt="Офис архитектурного бюро — 220 м²">
+      <div class="vc-portfolio__info">
+        <h3 class="vc-portfolio__name">Офис архбюро</h3>
+        <span class="vc-portfolio__meta">Коммерческий &middot; 220 м&sup2;</span>
+      </div>
+      <span class="vc-portfolio__counter">02 / 08</span>
+    </div>
+    <div class="vc-portfolio__page" data-index="2">
+      <img class="vc-portfolio__img parallax-img" src="images/portfolio-3.jpg" alt="Квартира в Хамовниках — 95 м²">
+      <div class="vc-portfolio__info">
+        <h3 class="vc-portfolio__name">Квартира в Хамовниках</h3>
+        <span class="vc-portfolio__meta">Жилой интерьер &middot; 95 м&sup2;</span>
+      </div>
+      <span class="vc-portfolio__counter">03 / 08</span>
+    </div>
+    <div class="vc-portfolio__page" data-index="3">
+      <img class="vc-portfolio__img parallax-img" src="images/portfolio-4.jpg" alt="Ресторан Forma — 180 м²">
+      <div class="vc-portfolio__info">
+        <h3 class="vc-portfolio__name">Ресторан Forma</h3>
+        <span class="vc-portfolio__meta">HoReCa &middot; 180 м&sup2;</span>
+      </div>
+      <span class="vc-portfolio__counter">04 / 08</span>
+    </div>
+    <div class="vc-portfolio__page" data-index="4">
+      <img class="vc-portfolio__img parallax-img" src="images/portfolio-5.jpg" alt="Таунхаус в Барвихе — 310 м²">
+      <div class="vc-portfolio__info">
+        <h3 class="vc-portfolio__name">Таунхаус в Барвихе</h3>
+        <span class="vc-portfolio__meta">Жилой интерьер &middot; 310 м&sup2;</span>
+      </div>
+      <span class="vc-portfolio__counter">05 / 08</span>
+    </div>
+    <div class="vc-portfolio__page" data-index="5">
+      <img class="vc-portfolio__img parallax-img" src="images/portfolio-6.jpg" alt="Спальня на Тверской — 85 м²">
+      <div class="vc-portfolio__info">
+        <h3 class="vc-portfolio__name">Спальня на Тверской</h3>
+        <span class="vc-portfolio__meta">Жилой интерьер &middot; 85 м&sup2;</span>
+      </div>
+      <span class="vc-portfolio__counter">06 / 08</span>
+    </div>
+    <div class="vc-portfolio__page" data-index="6">
+      <img class="vc-portfolio__img parallax-img" src="images/portfolio-7.jpg" alt="Ванная комната — 25 м²">
+      <div class="vc-portfolio__info">
+        <h3 class="vc-portfolio__name">Ванная в мраморе</h3>
+        <span class="vc-portfolio__meta">Санузел &middot; 25 м&sup2;</span>
+      </div>
+      <span class="vc-portfolio__counter">07 / 08</span>
+    </div>
+    <div class="vc-portfolio__page" data-index="7">
+      <img class="vc-portfolio__img parallax-img" src="images/portfolio-8.jpg" alt="Кабинет — 40 м²">
+      <div class="vc-portfolio__info">
+        <h3 class="vc-portfolio__name">Домашний кабинет</h3>
+        <span class="vc-portfolio__meta">Жилой интерьер &middot; 40 м&sup2;</span>
+      </div>
+      <span class="vc-portfolio__counter">08 / 08</span>
+    </div>
+  </section>
+
+  <!-- ================================================================
+       КОНТАКТ — Split CTA + info card
+       ================================================================ -->
+  <section id="contact" class="vc-contact section">
+    <div class="container">
+      <div class="vc-contact__grid">
+        <!-- Left — CTA -->
+        <div class="vc-contact__left">
+          <span class="vc-label reveal">Свяжитесь с нами</span>
+
+          <h2 class="vc-heading vc-contact__title reveal">
+            Начнём<br>проект
+          </h2>
+
+          <p class="vc-accent-text vc-contact__accent vc-unfold">
+            Расскажите о вашем пространстве — мы предложим решение
+          </p>
+
+          <p class="vc-body vc-contact__text reveal">
+            Оставьте заявку или позвоните — мы обсудим задачу, сроки и бюджет.
+            Первая консультация бесплатна.
+          </p>
+
+          <a href="mailto:[EMAIL]" class="vc-contact__cta reveal">
+            Написать нам
+            <span aria-hidden="true">&rarr;</span>
+          </a>
+        </div>
+
+        <!-- Right — Contact info card -->
+        <div class="vc-contact__info vc-unfold--right">
+          <h3 class="vc-contact__info-title">Контакты</h3>
+
+          <div class="vc-contact__info-row">
+            <span class="vc-contact__info-label">Телефон</span>
+            <span class="vc-contact__info-value">[ТЕЛЕФОН]</span>
+          </div>
+
+          <div class="vc-contact__info-row">
+            <span class="vc-contact__info-label">Email</span>
+            <span class="vc-contact__info-value">[EMAIL]</span>
+          </div>
+
+          <div class="vc-contact__info-row">
+            <span class="vc-contact__info-label">Адрес</span>
+            <span class="vc-contact__info-value">[АДРЕС]</span>
+          </div>
+
+          <div class="vc-contact__info-row">
+            <span class="vc-contact__info-label">Часы</span>
+            <span class="vc-contact__info-value">Пн — Пт, 10:00 — 19:00</span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ================================================================
+       SCRIPTS — shared modules, then variant init
+       ================================================================ -->
+  <script src="scripts/hero-shader.js"></script>
+  <script src="scripts/animations.js"></script>
+  <script src="scripts/tweaks.js?v=5"></script>
+  <script>
+    document.addEventListener('DOMContentLoaded', function () {
+      // Hero shader — geometric grid lines (variant C)
+      initHeroShader('c');
+      // Scroll-triggered reveal animations (shared: .reveal, .parallax, .reveal-stagger)
+      initScrollAnimations();
+
+      // --- Variant C unfold animations ---
+      // Custom observer for .vc-unfold* elements (clip-path reveal).
+      // Separate from shared animations.js because clip-path blocks IO
+      // in modern browsers — elements start with opacity:0 instead.
+      var reducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)');
+      var unfoldSelector = '.vc-unfold, .vc-unfold--right, .vc-unfold--down, .vc-unfold--up, .vc-unfold--diagonal';
+      var unfoldEls = document.querySelectorAll(unfoldSelector);
+
+      if (reducedMotion.matches) {
+        unfoldEls.forEach(function (el) { el.classList.add('revealed'); });
+      } else {
+        var unfoldObserver = new IntersectionObserver(function (entries) {
+          entries.forEach(function (entry) {
+            if (entry.isIntersecting) {
+              entry.target.classList.add('revealed');
+              unfoldObserver.unobserve(entry.target);
+            }
+          });
+        }, { threshold: 0, rootMargin: '50px 0px 50px 0px' });
+
+        unfoldEls.forEach(function (el) { unfoldObserver.observe(el); });
+
+        // Also check for elements already scrolled past on page load
+        // (e.g., navigated with hash anchor or fast scroll)
+        requestAnimationFrame(function () {
+          var viewH = window.innerHeight;
+          unfoldEls.forEach(function (el) {
+            if (el.classList.contains('revealed')) return;
+            var rect = el.getBoundingClientRect();
+            if (rect.bottom < 0 || rect.top < viewH) {
+              el.classList.add('revealed');
+              unfoldObserver.unobserve(el);
+            }
+          });
+        });
+
+        reducedMotion.addEventListener('change', function (e) {
+          if (e.matches) {
+            unfoldEls.forEach(function (el) { el.classList.add('revealed'); });
+          }
+        });
+      }
+    });
+  </script>
+
+  <!-- Hero scroll-trigger video + Parallax + Services hover-follow + Process timeline -->
+  <script>
+    document.addEventListener('DOMContentLoaded', function () {
+
+      /* === HERO: scroll-trigger video — canvas with pre-extracted frames + crossfade === */
+      var heroVideo = document.querySelector('.vc-hero__video');
+      var heroSection = document.querySelector('.vc-hero');
+      if (heroVideo && heroSection) {
+        var videoSrc = heroVideo.src || heroVideo.getAttribute('src');
+
+        var heroCanvas = document.createElement('canvas');
+        heroCanvas.style.cssText = 'position:absolute;inset:0;width:100%;height:100%;object-fit:cover;z-index:0;opacity:0;transition:opacity .4s';
+        heroVideo.parentNode.insertBefore(heroCanvas, heroVideo.nextSibling);
+        var ctx = heroCanvas.getContext('2d');
+        var frames = [];
+
+        fetch(videoSrc)
+          .then(function (r) { return r.blob(); })
+          .then(function (blob) {
+            var blobUrl = URL.createObjectURL(blob);
+            var offVideo = document.createElement('video');
+            offVideo.muted = true;
+            offVideo.playsInline = true;
+            offVideo.preload = 'auto';
+            offVideo.src = blobUrl;
+            offVideo.load();
+
+            offVideo.addEventListener('loadedmetadata', function () {
+              var dur = offVideo.duration;
+              var fps = 24;
+              var totalFrames = Math.round(dur * fps);
+              heroCanvas.width = offVideo.videoWidth;
+              heroCanvas.height = offVideo.videoHeight;
+              var tempCanvas = document.createElement('canvas');
+              tempCanvas.width = offVideo.videoWidth;
+              tempCanvas.height = offVideo.videoHeight;
+              var tempCtx = tempCanvas.getContext('2d');
+              var idx = 0;
+
+              function extractNext() {
+                if (idx >= totalFrames) {
+                  heroVideo.style.display = 'none';
+                  heroCanvas.style.opacity = '1';
+                  if (frames.length > 0) ctx.drawImage(frames[0], 0, 0, heroCanvas.width, heroCanvas.height);
+                  startScrollPlayback();
+                  return;
+                }
+                offVideo.currentTime = idx / fps;
+                offVideo.addEventListener('seeked', function onSeeked() {
+                  offVideo.removeEventListener('seeked', onSeeked);
+                  tempCtx.drawImage(offVideo, 0, 0);
+                  createImageBitmap(tempCanvas).then(function (bmp) {
+                    frames.push(bmp);
+                    idx++;
+                    extractNext();
+                  });
+                }, { once: true });
+              }
+
+              extractNext();
+
+              function startScrollPlayback() {
+                var targetIdx = 0;
+                var smoothIdx = 0;
+                var lastDrawn = -1;
+
+                window.addEventListener('scroll', function () {
+                  var rect = heroSection.getBoundingClientRect();
+                  var scrollable = heroSection.offsetHeight - window.innerHeight;
+                  if (scrollable <= 0) return;
+                  var scrolled = -rect.top;
+                  var progress = Math.max(0, Math.min(1, scrolled / scrollable));
+                  targetIdx = progress * (frames.length - 1);
+                }, { passive: true });
+
+                (function tick() {
+                  var diff = targetIdx - smoothIdx;
+                  if (Math.abs(diff) > 0.05) {
+                    smoothIdx += diff * 0.06;
+                  } else {
+                    smoothIdx = targetIdx;
+                  }
+                  var fi = Math.floor(smoothIdx);
+                  var t = smoothIdx - fi;
+                  fi = Math.max(0, Math.min(frames.length - 1, fi));
+                  var ni = Math.min(fi + 1, frames.length - 1);
+
+                  if (fi !== lastDrawn || t > 0.01) {
+                    if (t < 0.01 || fi === ni) {
+                      ctx.globalAlpha = 1;
+                      ctx.drawImage(frames[fi], 0, 0, heroCanvas.width, heroCanvas.height);
+                    } else {
+                      ctx.globalAlpha = 1;
+                      ctx.drawImage(frames[fi], 0, 0, heroCanvas.width, heroCanvas.height);
+                      ctx.globalAlpha = t;
+                      ctx.drawImage(frames[ni], 0, 0, heroCanvas.width, heroCanvas.height);
+                      ctx.globalAlpha = 1;
+                    }
+                    lastDrawn = fi;
+                  }
+                  requestAnimationFrame(tick);
+                })();
+              }
+            });
+          });
+      }
+
+      /* === PARALLAX on scroll === */
+      var parallaxImgs = document.querySelectorAll('.parallax-img');
+      if (parallaxImgs.length && !window.matchMedia('(prefers-reduced-motion: reduce)').matches) {
+        var ticking = false;
+        window.addEventListener('scroll', function () {
+          if (!ticking) {
+            requestAnimationFrame(function () {
+              parallaxImgs.forEach(function (img) {
+                var rect = img.parentElement.getBoundingClientRect();
+                var vh = window.innerHeight;
+                if (rect.bottom > 0 && rect.top < vh) {
+                  var progress = (rect.top + rect.height / 2 - vh / 2) / vh;
+                  img.style.transform = 'translateY(' + (progress * -40) + 'px) scale(1.08)';
+                }
+              });
+              ticking = false;
+            });
+            ticking = true;
+          }
+        }, { passive: true });
+      }
+
+      /* === PORTFOLIO: vertical page-flip on scroll === */
+      var flipPages = document.querySelectorAll('.vc-portfolio__page');
+      var portfolioSec = document.querySelector('.vc-portfolio');
+      if (flipPages.length > 1 && portfolioSec && !window.matchMedia('(prefers-reduced-motion: reduce)').matches) {
+        var nPages = flipPages.length;
+        var flipH;
+        function recalcFlipH() { flipH = flipPages[0].offsetHeight; }
+        recalcFlipH();
+        window.addEventListener('resize', recalcFlipH);
+
+        flipPages.forEach(function (p, i) { p.style.zIndex = nPages - i; });
+
+        var flipRaf = false;
+        window.addEventListener('scroll', function () {
+          if (flipRaf) return;
+          flipRaf = true;
+          requestAnimationFrame(function () {
+            var scrolled = -portfolioSec.getBoundingClientRect().top;
+            for (var i = 0; i < nPages - 1; i++) {
+              var t = (scrolled - i * flipH) / flipH;
+              t = t < 0 ? 0 : t > 1 ? 1 : t;
+              var pg = flipPages[i];
+              if (t === 0) {
+                pg.style.transform = '';
+                pg.style.opacity = '';
+                pg.style.pointerEvents = '';
+              } else if (t >= 1) {
+                pg.style.transform = 'perspective(1500px) rotateX(-90deg)';
+                pg.style.opacity = '0';
+                pg.style.pointerEvents = 'none';
+              } else {
+                pg.style.transform = 'perspective(1500px) rotateX(' + (-t * 90) + 'deg)';
+                pg.style.opacity = String(1 - t * 0.6);
+                pg.style.pointerEvents = '';
+              }
+            }
+            flipRaf = false;
+          });
+        }, { passive: true });
+      }
+
+      /* === SERVICES: hover-follow image === */
+      var serviceRows = document.querySelectorAll('.vc-services__row');
+      var cursorImg = document.querySelector('.vc-services__cursor-img');
+      if (serviceRows.length && cursorImg) {
+        var currentSrc = '';
+        serviceRows.forEach(function (row) {
+          row.addEventListener('mouseenter', function () {
+            var src = this.dataset.serviceImg;
+            if (src !== currentSrc) {
+              currentSrc = src;
+              cursorImg.style.backgroundImage = 'url(' + src + ')';
+            }
+            cursorImg.classList.add('is-visible');
+          });
+          row.addEventListener('mouseleave', function () {
+            cursorImg.classList.remove('is-visible');
+          });
+          row.addEventListener('mousemove', function (e) {
+            var rect = this.closest('.vc-services').getBoundingClientRect();
+            cursorImg.style.left = (e.clientX - rect.left + 16) + 'px';
+            cursorImg.style.top = (e.clientY - rect.top - 100) + 'px';
+          });
+        });
+      }
+
+      /* === PROCESS: timeline step photo switch on scroll === */
+      var processSteps = document.querySelectorAll('.vc-process__step');
+      var processPhotos = document.querySelectorAll('.vc-process__photo');
+      var photoLabels = {
+        '1': 'Квартира до начала работ. День замера',
+        '2': 'Визуализация будущего интерьера',
+        '3': 'Расчёт материалов и работ',
+        '4': 'Ход ремонтных работ',
+        '5': 'Готовый интерьер. Сдача объекта'
+      };
+      var labelEl = document.querySelector('.vc-process__photo-label-text');
+
+      if (processSteps.length && processPhotos.length) {
+        var stepObserver = new IntersectionObserver(function (entries) {
+          entries.forEach(function (entry) {
+            if (entry.isIntersecting) {
+              var stage = entry.target.dataset.stage;
+              processSteps.forEach(function (s) { s.classList.toggle('is-active', s.dataset.stage === stage); });
+              processPhotos.forEach(function (p) { p.classList.toggle('is-active', p.dataset.stage === stage); });
+              if (labelEl && photoLabels[stage]) labelEl.textContent = photoLabels[stage];
+            }
+          });
+        }, { threshold: 0.6, rootMargin: '-20% 0px -20% 0px' });
+        processSteps.forEach(function (step) { stepObserver.observe(step); });
+
+        processSteps.forEach(function (step) {
+          step.addEventListener('click', function () {
+            var stage = this.dataset.stage;
+            processSteps.forEach(function (s) { s.classList.toggle('is-active', s.dataset.stage === stage); });
+            processPhotos.forEach(function (p) { p.classList.toggle('is-active', p.dataset.stage === stage); });
+            if (labelEl && photoLabels[stage]) labelEl.textContent = photoLabels[stage];
+          });
+        });
+      }
+    });
+  </script>
+
+</body>
+</html>

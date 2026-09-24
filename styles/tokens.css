@@ -1,0 +1,263 @@
+/* ==========================================================================
+   FORMA Design Studio — Design Tokens
+   CSS custom properties: palette, typography, grid, spacing, breakpoints
+   ========================================================================== */
+
+/* --- Google Fonts --- */
+@import url('https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,700;1,400&family=Cormorant+Garamond:ital,wght@0,300;0,400;1,300;1,400&family=Inter:wght@300;400;500;700;800&family=Oswald:wght@400;500;700&display=swap');
+
+/* --- Design Tokens --- */
+:root {
+  /* Palette — §6 */
+  --black: #0A0A08;
+  --charcoal: #1A1714;
+  --surface: #252220;
+  --border: #3A3530;
+  --ivory: #F0EDE6;
+  --sand: #D4C9B0;
+  --taupe: #8A7A68;
+  --mocha: #5C4A38;
+  --gold: #C8A45A;
+  --gold-light: #E6CC92;
+
+  /* Variant C accent */
+  --orange: #D4864A;
+
+  /* Typography — font families */
+  --font-display-serif: 'Playfair Display', Georgia, 'Times New Roman', serif;
+  --font-accent-serif: 'Cormorant Garamond', 'Times New Roman', serif;
+  --font-body: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+  --font-condensed: 'Oswald', 'Arial Narrow', sans-serif;
+
+  /* Typography — sizes (fluid scale) */
+  --text-xs: clamp(0.75rem, 0.7rem + 0.25vw, 0.875rem);
+  --text-sm: clamp(0.875rem, 0.8rem + 0.35vw, 1rem);
+  --text-base: clamp(1rem, 0.9rem + 0.5vw, 1.125rem);
+  --text-lg: clamp(1.125rem, 1rem + 0.65vw, 1.375rem);
+  --text-xl: clamp(1.5rem, 1.2rem + 1.5vw, 2rem);
+  --text-2xl: clamp(2rem, 1.5rem + 2.5vw, 3rem);
+  --text-3xl: clamp(2.5rem, 1.8rem + 3.5vw, 4rem);
+  --text-4xl: clamp(3rem, 2rem + 5vw, 6rem);
+  --text-hero: clamp(3.5rem, 2.5rem + 6vw, 8rem);
+
+  /* Typography — line heights */
+  --leading-tight: 1.1;
+  --leading-snug: 1.25;
+  --leading-normal: 1.5;
+  --leading-relaxed: 1.7;
+
+  /* Typography — letter spacing */
+  --tracking-tight: -0.02em;
+  --tracking-normal: 0;
+  --tracking-wide: 0.05em;
+  --tracking-wider: 0.1em;
+  --tracking-widest: 0.2em;
+
+  /* Vertical rhythm base */
+  --rhythm: 8px;
+
+  /* Spacing scale (multiples of --rhythm = 8px) */
+  --space-1: 8px;    /* 1x */
+  --space-2: 16px;   /* 2x */
+  --space-3: 24px;   /* 3x */
+  --space-4: 32px;   /* 4x */
+  --space-5: 40px;   /* 5x */
+  --space-6: 48px;   /* 6x */
+  --space-8: 64px;   /* 8x */
+  --space-10: 80px;  /* 10x — min section padding */
+  --space-12: 96px;  /* 12x */
+  --space-15: 120px; /* 15x — section pause min */
+  --space-20: 160px; /* 20x */
+  --space-25: 200px; /* 25x — section pause max */
+
+  /* Grid */
+  --grid-columns: 12;
+  --grid-gap: 24px;
+  --grid-max-width: 1200px;
+  --grid-padding: 24px;
+
+  /* Breakpoints (used in media queries — documented here as tokens) */
+  /* --bp-mobile: 375px   */
+  /* --bp-tablet: 768px   */
+  /* --bp-desktop: 1024px */
+  /* --bp-wide: 1440px    */
+
+  /* Transitions */
+  --ease-out: cubic-bezier(0.16, 1, 0.3, 1);
+  --ease-in-out: cubic-bezier(0.65, 0, 0.35, 1);
+  --duration-fast: 200ms;
+  --duration-normal: 400ms;
+  --duration-slow: 800ms;
+  --duration-reveal: 1000ms;
+
+  /* Z-index layers */
+  --z-base: 1;
+  --z-overlay: 100;
+  --z-switcher: 900;
+  --z-modal: 1000;
+
+  /* Border radius */
+  --radius-sm: 4px;
+  --radius-md: 8px;
+  --radius-lg: 16px;
+
+  /* Shadows */
+  --shadow-sm: 0 2px 8px rgba(10, 10, 8, 0.3);
+  --shadow-md: 0 4px 16px rgba(10, 10, 8, 0.4);
+  --shadow-lg: 0 8px 32px rgba(10, 10, 8, 0.5);
+}
+
+/* --- Base Reset & Defaults --- */
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+html {
+  scroll-behavior: smooth;
+  -webkit-text-size-adjust: 100%;
+}
+
+body {
+  font-family: var(--font-body);
+  font-size: var(--text-base);
+  font-weight: 400;
+  line-height: var(--leading-normal);
+  color: var(--ivory);
+  background-color: var(--charcoal);
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  overflow-x: hidden;
+}
+
+img {
+  max-width: 100%;
+  height: auto;
+  display: block;
+}
+
+a {
+  color: var(--gold);
+  text-decoration: none;
+  transition: color var(--duration-fast) var(--ease-out);
+}
+
+a:hover {
+  color: var(--gold-light);
+}
+
+/* --- Container utility --- */
+.container {
+  width: 100%;
+  max-width: var(--grid-max-width);
+  margin-inline: auto;
+  padding-inline: var(--grid-padding);
+}
+
+/* --- Section spacing --- */
+.section {
+  padding-block: var(--space-10);
+}
+
+/* --- prefers-reduced-motion: disable animations globally --- */
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+    scroll-behavior: auto !important;
+  }
+}
+
+/* ==========================================================================
+   Scroll Animation Classes
+   Used by scripts/animations.js — initScrollAnimations()
+   ========================================================================== */
+
+/* --- .reveal: fade + slide up --- */
+.reveal {
+  opacity: 0;
+  transform: translateY(40px);
+  transition: opacity var(--duration-reveal) var(--ease-out),
+              transform var(--duration-reveal) var(--ease-out);
+}
+
+.reveal.revealed {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+/* --- .parallax: starts hidden, parallax offset applied by JS --- */
+.parallax {
+  opacity: 0;
+  transition: opacity var(--duration-reveal) var(--ease-out);
+  will-change: transform;
+}
+
+.parallax.revealed {
+  opacity: 1;
+}
+
+/* --- .reveal-stagger: container whose children stagger-reveal --- */
+.reveal-stagger {
+  /* Container itself is always visible */
+}
+
+.reveal-stagger > * {
+  opacity: 0;
+  transform: translateY(30px);
+  transition: opacity var(--duration-slow) var(--ease-out),
+              transform var(--duration-slow) var(--ease-out);
+}
+
+.reveal-stagger.revealed > *:nth-child(1) { transition-delay: 0ms; }
+.reveal-stagger.revealed > *:nth-child(2) { transition-delay: 100ms; }
+.reveal-stagger.revealed > *:nth-child(3) { transition-delay: 200ms; }
+.reveal-stagger.revealed > *:nth-child(4) { transition-delay: 300ms; }
+.reveal-stagger.revealed > *:nth-child(5) { transition-delay: 400ms; }
+.reveal-stagger.revealed > *:nth-child(6) { transition-delay: 500ms; }
+.reveal-stagger.revealed > *:nth-child(7) { transition-delay: 600ms; }
+.reveal-stagger.revealed > *:nth-child(8) { transition-delay: 700ms; }
+
+.reveal-stagger.revealed > * {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+/* --- prefers-reduced-motion: force all revealed, no transitions --- */
+@media (prefers-reduced-motion: reduce) {
+  .reveal,
+  .parallax,
+  .reveal-stagger > * {
+    opacity: 1 !important;
+    transform: none !important;
+    transition: none !important;
+  }
+}
+
+/* --- Responsive grid padding --- */
+@media (max-width: 767px) {
+  :root {
+    --grid-columns: 4;
+    --grid-gap: 16px;
+    --grid-padding: 16px;
+  }
+}
+
+@media (min-width: 768px) and (max-width: 1023px) {
+  :root {
+    --grid-gap: 24px;
+    --grid-padding: 32px;
+  }
+}
+
+@media (min-width: 1440px) {
+  :root {
+    --grid-padding: 48px;
+  }
+}
