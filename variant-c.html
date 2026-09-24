@@ -419,8 +419,51 @@
         heroCanvas.style.cssText = 'position:absolute;inset:0;width:100%;height:100%;object-fit:cover;z-index:0;opacity:0;transition:opacity .4s';
         heroVideo.parentNode.insertBefore(heroCanvas, heroVideo.nextSibling);
         var ctx = heroCanvas.getContext('2d');
-        var frames = [];
 
+        var frames = [];
+        var totalFrames = 0; // set after metadata loads
+        var targetIdx = 0;
+        var smoothIdx = 0;
+        var lastDrawn = -1;
+        var canvasShown = false;
+
+        /* Scroll listener starts immediately — works with whatever frames exist */
+        window.addEventListener('scroll', function () {
+          if (frames.length === 0) return;
+          var rect = heroSection.getBoundingClientRect();
+          var scrollable = heroSection.offsetHeight - window.innerHeight;
+          if (scrollable <= 0) return;
+          var scrolled = -rect.top;
+          var progress = Math.max(0, Math.min(1, scrolled / scrollable));
+          /* Use totalFrames for stable mapping even while extraction is in progress */
+          var maxIdx = (totalFrames > 0 ? totalFrames : frames.length) - 1;
+          targetIdx = progress * maxIdx;
+        }, { passive: true });
+
+        /* Animation tick starts immediately */
+        (function tick() {
+          if (frames.length > 0) {
+            var diff = targetIdx - smoothIdx;
+            if (Math.abs(diff) > 0.05) { smoothIdx += diff * 0.06; } else { smoothIdx = targetIdx; }
+            var fi = Math.floor(smoothIdx);
+            var t = smoothIdx - fi;
+            fi = Math.max(0, Math.min(frames.length - 1, fi));
+            var ni = Math.min(fi + 1, frames.length - 1);
+            if (fi !== lastDrawn || t > 0.01) {
+              ctx.globalAlpha = 1;
+              ctx.drawImage(frames[fi], 0, 0, heroCanvas.width, heroCanvas.height);
+              if (t > 0.01 && fi !== ni) {
+                ctx.globalAlpha = t;
+                ctx.drawImage(frames[ni], 0, 0, heroCanvas.width, heroCanvas.height);
+                ctx.globalAlpha = 1;
+              }
+              lastDrawn = fi;
+            }
+          }
+          requestAnimationFrame(tick);
+        })();
+
+        /* Fetch + extract frames in background */
         fetch(videoSrc)
           .then(function (r) { return r.blob(); })
           .then(function (blob) {
@@ -436,8 +479,8 @@
 
             offVideo.addEventListener('loadedmetadata', function () {
               var dur = offVideo.duration;
-              var fps = 24;
-              var totalFrames = Math.round(dur * fps);
+              var fps = 15; /* 15fps — half the frames, 2x faster extraction */
+              totalFrames = Math.round(dur * fps);
               heroCanvas.width = offVideo.videoWidth;
               heroCanvas.height = offVideo.videoHeight;
               var tempCanvas = document.createElement('canvas');
@@ -448,12 +491,10 @@
 
               function extractNext() {
                 if (idx >= totalFrames) {
+                  /* All frames ready — clean up */
                   if (offVideo.parentNode) offVideo.parentNode.removeChild(offVideo);
                   URL.revokeObjectURL(blobUrl);
                   heroVideo.style.display = 'none';
-                  heroCanvas.style.opacity = '1';
-                  if (frames.length > 0) ctx.drawImage(frames[0], 0, 0, heroCanvas.width, heroCanvas.height);
-                  startScrollPlayback();
                   return;
                 }
                 offVideo.currentTime = idx / fps;
@@ -462,6 +503,12 @@
                   tempCtx.drawImage(offVideo, 0, 0);
                   createImageBitmap(tempCanvas).then(function (bmp) {
                     frames.push(bmp);
+                    /* Show canvas as soon as first frame is ready */
+                    if (!canvasShown) {
+                      canvasShown = true;
+                      heroVideo.style.display = 'none';
+                      heroCanvas.style.opacity = '1';
+                    }
                     idx++;
                     extractNext();
                   });
@@ -469,49 +516,6 @@
               }
 
               extractNext();
-
-              function startScrollPlayback() {
-                var targetIdx = 0;
-                var smoothIdx = 0;
-                var lastDrawn = -1;
-
-                window.addEventListener('scroll', function () {
-                  var rect = heroSection.getBoundingClientRect();
-                  var scrollable = heroSection.offsetHeight - window.innerHeight;
-                  if (scrollable <= 0) return;
-                  var scrolled = -rect.top;
-                  var progress = Math.max(0, Math.min(1, scrolled / scrollable));
-                  targetIdx = progress * (frames.length - 1);
-                }, { passive: true });
-
-                (function tick() {
-                  var diff = targetIdx - smoothIdx;
-                  if (Math.abs(diff) > 0.05) {
-                    smoothIdx += diff * 0.06;
-                  } else {
-                    smoothIdx = targetIdx;
-                  }
-                  var fi = Math.floor(smoothIdx);
-                  var t = smoothIdx - fi;
-                  fi = Math.max(0, Math.min(frames.length - 1, fi));
-                  var ni = Math.min(fi + 1, frames.length - 1);
-
-                  if (fi !== lastDrawn || t > 0.01) {
-                    if (t < 0.01 || fi === ni) {
-                      ctx.globalAlpha = 1;
-                      ctx.drawImage(frames[fi], 0, 0, heroCanvas.width, heroCanvas.height);
-                    } else {
-                      ctx.globalAlpha = 1;
-                      ctx.drawImage(frames[fi], 0, 0, heroCanvas.width, heroCanvas.height);
-                      ctx.globalAlpha = t;
-                      ctx.drawImage(frames[ni], 0, 0, heroCanvas.width, heroCanvas.height);
-                      ctx.globalAlpha = 1;
-                    }
-                    lastDrawn = fi;
-                  }
-                  requestAnimationFrame(tick);
-                })();
-              }
             });
           });
       }
