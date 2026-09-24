@@ -773,7 +773,8 @@
 .vc-contact__info-row {
   display: flex;
   gap: var(--space-3);
-  padding-block: var(--space-3);
+  padding-top: var(--space-3);
+  padding-bottom: var(--space-3);
   border-top: 1px solid var(--border);
 }
 
