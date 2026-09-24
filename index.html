@@ -18,6 +18,28 @@
 <body>
 
   <!-- ================================================================
+       HEADER / NAVIGATION
+       ================================================================ -->
+  <header class="vc-header" id="vcHeader">
+    <div class="vc-header__inner container">
+      <a href="#hero" class="vc-header__logo">FORMA</a>
+      <nav class="vc-header__nav" id="vcHeaderNav" aria-label="Основная навигация">
+        <a href="#about" class="vc-header__link">О студии</a>
+        <a href="#services" class="vc-header__link">Услуги</a>
+        <a href="#portfolio" class="vc-header__link">Проекты</a>
+        <a href="#process" class="vc-header__link">Процесс</a>
+        <a href="#contact" class="vc-header__link vc-header__link--cta">Связаться</a>
+      </nav>
+      <button class="vc-header__burger" id="vcHeaderBurger"
+              aria-label="Открыть меню" aria-expanded="false" aria-controls="vcHeaderNav">
+        <span aria-hidden="true"></span>
+        <span aria-hidden="true"></span>
+        <span aria-hidden="true"></span>
+      </button>
+    </div>
+  </header>
+
+  <!-- ================================================================
        HERO — Конструктор: bold condensed type + geometric canvas
        ================================================================ -->
   <section id="hero" class="vc-hero hero">
@@ -353,6 +375,50 @@
   <script src="scripts/hero-shader.js"></script>
   <script src="scripts/animations.js"></script>
   <script src="scripts/tweaks.js?v=5"></script>
+
+  <!-- Header: scroll backdrop + burger toggle -->
+  <script>
+    (function () {
+      var header = document.getElementById('vcHeader');
+      var burger = document.getElementById('vcHeaderBurger');
+      var nav = document.getElementById('vcHeaderNav');
+
+      /* Scroll backdrop */
+      window.addEventListener('scroll', function () {
+        header.classList.toggle('scrolled', window.scrollY > 20);
+      }, { passive: true });
+
+      /* Burger toggle */
+      burger.addEventListener('click', function () {
+        var isOpen = nav.classList.toggle('open');
+        burger.classList.toggle('open', isOpen);
+        burger.setAttribute('aria-expanded', String(isOpen));
+        document.body.style.overflow = isOpen ? 'hidden' : '';
+      });
+
+      /* Close on link click */
+      nav.querySelectorAll('.vc-header__link').forEach(function (link) {
+        link.addEventListener('click', function () {
+          nav.classList.remove('open');
+          burger.classList.remove('open');
+          burger.setAttribute('aria-expanded', 'false');
+          document.body.style.overflow = '';
+        });
+      });
+
+      /* Close on Escape */
+      document.addEventListener('keydown', function (e) {
+        if (e.key === 'Escape' && nav.classList.contains('open')) {
+          nav.classList.remove('open');
+          burger.classList.remove('open');
+          burger.setAttribute('aria-expanded', 'false');
+          document.body.style.overflow = '';
+          burger.focus();
+        }
+      });
+    })();
+  </script>
+
   <script>
     document.addEventListener('DOMContentLoaded', function () {
       // Hero shader — geometric grid lines (variant C)
