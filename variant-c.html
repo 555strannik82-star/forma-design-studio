@@ -429,6 +429,8 @@
             offVideo.muted = true;
             offVideo.playsInline = true;
             offVideo.preload = 'auto';
+            offVideo.style.cssText = 'position:fixed;top:-9999px;left:-9999px;width:1px;height:1px;opacity:0;pointer-events:none;';
+            document.body.appendChild(offVideo);
             offVideo.src = blobUrl;
             offVideo.load();
 
@@ -446,6 +448,8 @@
 
               function extractNext() {
                 if (idx >= totalFrames) {
+                  if (offVideo.parentNode) offVideo.parentNode.removeChild(offVideo);
+                  URL.revokeObjectURL(blobUrl);
                   heroVideo.style.display = 'none';
                   heroCanvas.style.opacity = '1';
                   if (frames.length > 0) ctx.drawImage(frames[0], 0, 0, heroCanvas.width, heroCanvas.height);
